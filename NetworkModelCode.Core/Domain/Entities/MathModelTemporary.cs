@@ -5,7 +5,7 @@ namespace NetworkModelCode.Core.Domain.Entities
     /// <summary>
     /// Временные характеристики
     /// </summary>
-    public class MathModelTemporary
+    public class MathModelTemporary : BaseEntity
     {
         /// <summary>
         /// Раннее начало выполнения работы (t^pн).

@@ -5,7 +5,7 @@ namespace NetworkModelCode.Core.Domain.Entities
     /// <summary>
     /// Исходные параметры.
     /// </summary>
-    public class MathModelSource
+    public class MathModelSource : BaseEntity
     {
         public int NumberWorkCount { get; set; }
 
