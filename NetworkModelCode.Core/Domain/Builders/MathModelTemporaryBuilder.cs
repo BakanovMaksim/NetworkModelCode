@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
 {
-    public class MathModelTemporaryBuilder
+    public sealed class MathModelTemporaryBuilder
     {
         private MathModelTemporary MathModelTemporary;
 

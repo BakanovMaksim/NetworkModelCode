@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NetworkModelCode.Tests.Core.Application.Calculators
 {
-    public class SourceCalculator
+    internal class CalculatorSource
     {
         public static IEnumerable<TestCaseData> GetEarlyStartsAndEnds()
         {

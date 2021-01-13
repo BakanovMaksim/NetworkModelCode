@@ -10,9 +10,9 @@ using System.Linq;
 namespace NetworkModelCode.Tests.Core.Application.Calculators
 {
     [TestFixture]
-    public class MathModelTemporaryCalculatorTests
+    internal class MathModelTemporaryCalculatorTests
     {
-        private MathModelTemporaryCalculator MathModelTemporaryCalculator { get; set; }
+        internal MathModelTemporaryCalculator MathModelTemporaryCalculator { get; set; }
 
         [SetUp]
         public void SetUp()
@@ -22,63 +22,51 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
             MathModelTemporaryCalculator = new MathModelTemporaryCalculator(mathModelSource);
         }
 
-        [TestCaseSource(typeof(SourceCalculator), nameof(SourceCalculator.GetEarlyStartsAndEnds))]
-        public void CalculateEarlyStartsAndEndsTests(IReadOnlyList<int> expectedEarlyStarts, IReadOnlyList<int> expectedEarlyEnds)
+        [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetEarlyStartsAndEnds))]
+        public void CalculateEarlyStartsAndEndsTests(IEnumerable<int> expectedEarlyStarts, IEnumerable<int> expectedEarlyEnds)
         {
             var (earlyStarts, earlyEnds) = MathModelTemporaryCalculator.CalculateEarlyStartsAndEnds();
 
             var actualEarlyStarts = earlyStarts.ToList();
             var actualEarlyEnds = earlyEnds.ToList();
-            for (int k = 0; k < expectedEarlyStarts.Count; k++)
-            {
-                Assert.AreEqual(expectedEarlyStarts[k], actualEarlyStarts[k]);
-                Assert.AreEqual(expectedEarlyEnds[k], actualEarlyEnds[k]);
-            }
+            CollectionAssert.AreEqual(expectedEarlyStarts, actualEarlyStarts);
+            CollectionAssert.AreEqual(expectedEarlyEnds, actualEarlyEnds);
         }
 
-        [TestCaseSource(typeof(SourceCalculator), nameof(SourceCalculator.GetLateEnds))]
-        public void CalculateLateEndsTests(IReadOnlyList<int> expectedLateStarts)
+        [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetLateEnds))]
+        public void CalculateLateEndsTests(IEnumerable<int> expectedLateStarts)
         {
             var (earlyStarts, earlyEnds) = MathModelTemporaryCalculator.CalculateEarlyStartsAndEnds();
             var lateEnds = MathModelTemporaryCalculator.CalculateLateEnds(earlyEnds);
 
             var actualLateEnds = lateEnds.ToList();
-            for (int k = 0; k < expectedLateStarts.Count; k++)
-            {
-                Assert.AreEqual(expectedLateStarts[k], actualLateEnds[k]);
-            }
+            CollectionAssert.AreEqual(expectedLateStarts, actualLateEnds);
         }
 
-        [TestCaseSource(typeof(SourceCalculator), nameof(SourceCalculator.GetLateStarts))]
-        public void CalculateLateStartsTests(IReadOnlyList<int> expectetLateStarts)
+        [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetLateStarts))]
+        public void CalculateLateStartsTests(IEnumerable<int> expectetLateStarts)
         {
             var (earlyStarts, earlyEnds) = MathModelTemporaryCalculator.CalculateEarlyStartsAndEnds();
             var lateEnds = MathModelTemporaryCalculator.CalculateLateEnds(earlyEnds);
             var lateStarts = MathModelTemporaryCalculator.CalculateLateStarts(lateEnds);
 
             var actualLateStarts = lateStarts.ToList();
-            for (int k = 0; k < expectetLateStarts.Count; k++)
-            {
-                Assert.AreEqual(expectetLateStarts[k], actualLateStarts[k]);
-            }
+            CollectionAssert.AreEqual(expectetLateStarts, actualLateStarts);
         }
 
-        [TestCaseSource(typeof(SourceCalculator), nameof(SourceCalculator.GetTimeReserves))]
-        public void CalculateFullTimeReservesTests(IReadOnlyList<int> expectedFullTimeReserves)
+        [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetTimeReserves))]
+        public void CalculateFullTimeReservesTests(IEnumerable<int> expectedFullTimeReserves)
         {
             var (earlyStarts, earlyEnds) = MathModelTemporaryCalculator.CalculateEarlyStartsAndEnds();
             var lateEnds = MathModelTemporaryCalculator.CalculateLateEnds(earlyEnds);
 
             var actualFullTimeReserves = MathModelTemporaryCalculator.CalculateFullTimeReserves(lateEnds, earlyEnds).ToList();
 
-            for (int k = 0; k < expectedFullTimeReserves.Count; k++)
-            {
-                Assert.AreEqual(expectedFullTimeReserves[k], actualFullTimeReserves[k]);
-            }
+            CollectionAssert.AreEqual(expectedFullTimeReserves, actualFullTimeReserves);
         }
 
-        [TestCaseSource(typeof(SourceCalculator), nameof(SourceCalculator.GetTimeReserves))]
-        public void CalculateFreeTimeReservesTests(IReadOnlyList<int> expectedFreeTimeReserves)
+        [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetTimeReserves))]
+        public void CalculateFreeTimeReservesTests(IEnumerable<int> expectedFreeTimeReserves)
         {
             var (earlyStarts, earlyEnds) = MathModelTemporaryCalculator.CalculateEarlyStartsAndEnds();
             var lateEnds = MathModelTemporaryCalculator.CalculateLateEnds(earlyEnds);
@@ -86,10 +74,7 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
 
             var actualFreeTimeReserves = MathModelTemporaryCalculator.CalculateFreeTimeReserves(lateStarts, earlyStarts).ToList();
 
-            for (int k = 0; k < expectedFreeTimeReserves.Count; k++)
-            {
-                Assert.AreEqual(expectedFreeTimeReserves[k], actualFreeTimeReserves[k]);
-            }
+            CollectionAssert.AreEqual(expectedFreeTimeReserves, actualFreeTimeReserves);
         }
 
         private MathModelSource GetMathModelSource()

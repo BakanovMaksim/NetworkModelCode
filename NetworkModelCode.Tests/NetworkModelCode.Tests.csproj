@@ -14,6 +14,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetworkModelCode.Core\NetworkModelCode.Core.csproj" />
+    <ProjectReference Include="..\NetworkModelCode.Infrastructure\NetworkModelCode.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Domain\Builders\" />
   </ItemGroup>
 
 </Project>

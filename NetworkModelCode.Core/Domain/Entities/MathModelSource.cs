@@ -31,5 +31,36 @@ namespace NetworkModelCode.Core.Domain.Entities
             I = i;
             J = j;
         }
+
+        public static bool operator ==(WorkCode workCodeLeft, WorkCode workCodeRight)
+        {
+            if ((workCodeLeft == null) || (workCodeRight == null))
+                return false;
+
+            return workCodeLeft.Equals(workCodeRight);
+        }
+
+        public static bool operator !=(WorkCode workCodeLeft, WorkCode workCodeRight)
+        {
+            if ((workCodeLeft == null) || (workCodeRight == null))
+                return false;
+
+            return !workCodeLeft.Equals(workCodeRight);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var workCode = obj as WorkCode;
+
+            if (workCode == null)
+                return false;
+
+            return (this.I == workCode.I) && (this.J == workCode.J) ? true : false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
