@@ -34,6 +34,11 @@ namespace NetworkModelCode.Desktop
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemProject = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.enterButton = new System.Windows.Forms.Button();
+            this.numberWorkCountTxt = new System.Windows.Forms.TextBox();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageTable = new System.Windows.Forms.TabPage();
+            this.tabPageGraph = new System.Windows.Forms.TabPage();
             this.ColumnI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnJ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,11 +48,6 @@ namespace NetworkModelCode.Desktop
             this.ColumnLateEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFullTimeReserve = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFreeTimeReserve = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enterButton = new System.Windows.Forms.Button();
-            this.numberWorkCountTxt = new System.Windows.Forms.TextBox();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageTable = new System.Windows.Forms.TabPage();
-            this.tabPageGraph = new System.Windows.Forms.TabPage();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tabControl.SuspendLayout();
@@ -107,51 +107,6 @@ namespace NetworkModelCode.Desktop
             this.dataGridView.Size = new System.Drawing.Size(944, 364);
             this.dataGridView.TabIndex = 1;
             // 
-            // ColumnI
-            // 
-            this.ColumnI.HeaderText = "i";
-            this.ColumnI.Name = "ColumnI";
-            // 
-            // ColumnJ
-            // 
-            this.ColumnJ.HeaderText = "j";
-            this.ColumnJ.Name = "ColumnJ";
-            // 
-            // ColumnTime
-            // 
-            this.ColumnTime.HeaderText = "Время";
-            this.ColumnTime.Name = "ColumnTime";
-            // 
-            // ColumnEarlyStart
-            // 
-            this.ColumnEarlyStart.HeaderText = "t^рн";
-            this.ColumnEarlyStart.Name = "ColumnEarlyStart";
-            // 
-            // ColumnEarlyEnd
-            // 
-            this.ColumnEarlyEnd.HeaderText = "t^ро";
-            this.ColumnEarlyEnd.Name = "ColumnEarlyEnd";
-            // 
-            // ColumnLateStart
-            // 
-            this.ColumnLateStart.HeaderText = "t^пн";
-            this.ColumnLateStart.Name = "ColumnLateStart";
-            // 
-            // ColumnLateEnd
-            // 
-            this.ColumnLateEnd.HeaderText = "t^по";
-            this.ColumnLateEnd.Name = "ColumnLateEnd";
-            // 
-            // ColumnFullTimeReserve
-            // 
-            this.ColumnFullTimeReserve.HeaderText = "R";
-            this.ColumnFullTimeReserve.Name = "ColumnFullTimeReserve";
-            // 
-            // ColumnFreeTimeReserve
-            // 
-            this.ColumnFreeTimeReserve.HeaderText = "r";
-            this.ColumnFreeTimeReserve.Name = "ColumnFreeTimeReserve";
-            // 
             // enterButton
             // 
             this.enterButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -205,6 +160,51 @@ namespace NetworkModelCode.Desktop
             this.tabPageGraph.Text = "Сетевой график";
             this.tabPageGraph.UseVisualStyleBackColor = true;
             // 
+            // ColumnI
+            // 
+            this.ColumnI.HeaderText = "i";
+            this.ColumnI.Name = "ColumnI";
+            // 
+            // ColumnJ
+            // 
+            this.ColumnJ.HeaderText = "j";
+            this.ColumnJ.Name = "ColumnJ";
+            // 
+            // ColumnTime
+            // 
+            this.ColumnTime.HeaderText = "t";
+            this.ColumnTime.Name = "ColumnTime";
+            // 
+            // ColumnEarlyStart
+            // 
+            this.ColumnEarlyStart.HeaderText = "t^рн";
+            this.ColumnEarlyStart.Name = "ColumnEarlyStart";
+            // 
+            // ColumnEarlyEnd
+            // 
+            this.ColumnEarlyEnd.HeaderText = "t^ро";
+            this.ColumnEarlyEnd.Name = "ColumnEarlyEnd";
+            // 
+            // ColumnLateStart
+            // 
+            this.ColumnLateStart.HeaderText = "t^пн";
+            this.ColumnLateStart.Name = "ColumnLateStart";
+            // 
+            // ColumnLateEnd
+            // 
+            this.ColumnLateEnd.HeaderText = "t^по";
+            this.ColumnLateEnd.Name = "ColumnLateEnd";
+            // 
+            // ColumnFullTimeReserve
+            // 
+            this.ColumnFullTimeReserve.HeaderText = "R";
+            this.ColumnFullTimeReserve.Name = "ColumnFullTimeReserve";
+            // 
+            // ColumnFreeTimeReserve
+            // 
+            this.ColumnFreeTimeReserve.HeaderText = "r";
+            this.ColumnFreeTimeReserve.Name = "ColumnFreeTimeReserve";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -234,6 +234,10 @@ namespace NetworkModelCode.Desktop
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProject;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button enterButton;
+        private System.Windows.Forms.TextBox numberWorkCountTxt;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageTable;
+        private System.Windows.Forms.TabPage tabPageGraph;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnI;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJ;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTime;
@@ -243,10 +247,6 @@ namespace NetworkModelCode.Desktop
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnLateEnd;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFullTimeReserve;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFreeTimeReserve;
-        private System.Windows.Forms.TextBox numberWorkCountTxt;
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPageTable;
-        private System.Windows.Forms.TabPage tabPageGraph;
     }
 }
 

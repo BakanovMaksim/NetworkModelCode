@@ -1,7 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 using NetworkModelCode.Core.Domain.Builders;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,7 +35,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
         private IReadOnlyList<int> ParseLine(string line)
         {
             return line
-                .Remove(0, 2)
+                .Remove(0,2)
                 .Split(',')
                 .Select(p => int.Parse(p))
                 .ToList();
