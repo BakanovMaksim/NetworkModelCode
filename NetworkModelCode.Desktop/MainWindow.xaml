@@ -1,0 +1,27 @@
+﻿<Window x:Class="NetworkModelCode.DesktopWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkModelCode.DesktopWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <DockPanel x:Name="mainDockPanel">
+        <Menu x:Name="applicaionMenu" DockPanel.Dock="Top">
+            <MenuItem x:Name="fileMenuItem" Header="Файл">
+                
+            </MenuItem>
+            <MenuItem x:Name="editMenuItem" Header="Правка">
+                
+            </MenuItem>
+            <MenuItem x:Name="projectMenuItem" Header="Проект">
+                <MenuItem Header="Новый проект" Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Последний проект"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Frame x:Name="mainFrame" DockPanel.Dock="Bottom">
+            
+        </Frame>
+    </DockPanel>
+</Window>
