@@ -33,14 +33,14 @@
             <TabItem x:Name="graphTabItem" Header="Сетевой график"/>
         </TabControl>
         <StackPanel Grid.Row="1">
-            <RichTextBox x:Name="dataSourceRichTextBox">
+            <RichTextBox x:Name="dataSourceRichTextBox" Height="200">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="{Binding Path=Project.Data, Mode=TwoWay}"/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <Button x:Name="enterButton" Click="enterButton_Click"/>
+            <Button x:Name="enterButton" Click="enterButton_Click" Height="25" Margin="350,0,350,0"/>
         </StackPanel>
     </Grid>
 </Page>
