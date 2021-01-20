@@ -8,29 +8,28 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 {
     public class MathModelFileParser 
     {
-        public bool TryParseSource(string buffer, out MathModelSource mathModelSource)
-        {
-            if (string.IsNullOrWhiteSpace(buffer))
-            {
-                mathModelSource = null;
-                return false;
-            }
+        //public bool TryParseSource(string buffer, out MathModelSource mathModelSource)   //TODO: ПЕРЕПИСАТЬ!
+        //    if (string.IsNullOrWhiteSpace(buffer))
+        //    {
+        //        mathModelSource = null;
+        //        return false;
+        //    }
 
-            var lines = buffer.Split('\n');
+        //    var lines = buffer.Split('\n');
 
-            var numberWorkCount = int.Parse(lines[0][2].ToString());
-            var workCodeIs = ParseLine(lines[1]);
-            var workCodeJs = ParseLine(lines[2]);
-            var executionTimes = ParseLine(lines[3]);
+        //    var numberWorkCount = int.Parse(lines[0][2].ToString());
+        //    var workCodeIs = ParseLine(lines[1]);
+        //    var workCodeJs = ParseLine(lines[2]);
+        //    var executionTimes = ParseLine(lines[3]);
 
-            mathModelSource = new MathModelSourceBuilder()
-                .SetNumberWorkCount(numberWorkCount)
-                .SetWorkCodes(workCodeIs, workCodeJs)
-                .SetExecutionTimes(executionTimes)
-                .Build();
+        //    mathModelSource = new MathModelSourceBuilder()
+        //        .SetNumberWorkCount(numberWorkCount)
+        //        .SetWorkCodes(workCodeIs, workCodeJs)
+        //        .SetExecutionTimes(executionTimes)
+        //        .Build();
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private IReadOnlyList<int> ParseLine(string line)
         {
