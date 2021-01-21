@@ -17,7 +17,7 @@ namespace NetworkModelCode.Desktop.Views
 
         private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ProjectViewModel.CalculateMathModelTemporary(tableDataGrid);
+            ProjectViewModel.CalculateMathModelTemporary();
         }
     }
 }

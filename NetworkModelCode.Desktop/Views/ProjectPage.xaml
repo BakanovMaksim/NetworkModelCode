@@ -16,31 +16,25 @@
         
         <TabControl x:Name="mathModelTabControl" Grid.Row="0">
             <TabItem x:Name="tableTabItem" Header="Таблица">
-                <DataGrid x:Name="tableDataGrid">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="i" />
-                        <DataGridTextColumn Header="j"/>
-                        <DataGridTextColumn Header="Продолжительность"/>
-                        <DataGridTextColumn Header="Раннее начало"/>
-                        <DataGridTextColumn Header="Раннее окончание"/>
-                        <DataGridTextColumn Header="Позднее начало"/>
-                        <DataGridTextColumn Header="Позднее окончание"/>
-                        <DataGridTextColumn Header="Полный резерв"/>
-                        <DataGridTextColumn Header="Частный резерв"/>
-                    </DataGrid.Columns>
+                <DataGrid x:Name="tableDataGrid" ItemsSource="{Binding WorkTimeCharacteristics}">
                 </DataGrid>
             </TabItem>
             <TabItem x:Name="graphTabItem" Header="Сетевой график"/>
         </TabControl>
-        <StackPanel Grid.Row="1">
-            <RichTextBox x:Name="dataSourceRichTextBox" Height="200">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <RichTextBox x:Name="dataSourceRichTextBox" Grid.Column="0">
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="{Binding Path=Project.Data, Mode=TwoWay}"/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <Button x:Name="enterButton" Click="enterButton_Click" Height="25" Margin="350,0,350,0"/>
-        </StackPanel>
+            <Button x:Name="enterButton" Grid.Column="1" Click="enterButton_Click" Margin="100"/>
+        </Grid>
     </Grid>
 </Page>
