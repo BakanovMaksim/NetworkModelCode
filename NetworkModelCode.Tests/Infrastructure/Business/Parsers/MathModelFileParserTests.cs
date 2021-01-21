@@ -8,27 +8,26 @@ using System.Collections.Generic;
 namespace NetworkModelCode.Tests.Infrastructure.Business.Parsers
 {
     [TestFixture]
-    internal class MathModelFileParserTests
+    internal class WorkTextParserTests
     {
-        internal MathModelFileParser Parser { get; set; }
+        internal WorkTextParser Parser { get; set; }
 
         [SetUp]
         public void SetUp()
         {
-            Parser = new MathModelFileParser();
+            Parser = new();
         }
 
-        //[TestCaseSource(typeof(ParserSource),nameof(ParserSource.GetBuffers))]  //TODO: ПЕРЕПИСАТЬ!
-        //public void TryParseTests(string buffer, bool expectedIsTry, IReadOnlyList<WorkCode> expectedWorkCodes, IReadOnlyList<int> expectedExecutionTimes)
-        //{
-        //    var actualIsTry = Parser.TryParseSource(buffer, out var actualMathModelSource);
+        [TestCaseSource(typeof(ParserSource), nameof(ParserSource.GetBuffers))] 
+        public void TryParseWorkDataSourceTests(string buffer, bool expectedIsTry, IReadOnlyList<WorkDataSource> expectedWorkDataSource)
+        {
+            var actualIsTry = Parser.TryParseWorkDataSource(buffer, out var actualWorkDataSource);
 
-        //    Assert.AreEqual(expectedIsTry, actualIsTry);
-        //    if (expectedIsTry)
-        //    {
-        //        Assert.AreEqual(expectedWorkCodes.Count, actualMathModelSource.NumberWorkCount);
-        //        CollectionAssert.AreEqual(expectedExecutionTimes, actualMathModelSource.ExecutionTimes);
-        //    }
-        //}
+            Assert.AreEqual(expectedIsTry, actualIsTry);
+            if (expectedIsTry)
+            {
+                CollectionAssert.AreEqual(expectedWorkDataSource, actualWorkDataSource);
+            }
+        }
     }
 }

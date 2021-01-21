@@ -29,13 +29,10 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
                 new List<int> { 0, 3, 0, 4, 0, 0, 0, 0 });
         }
 
-        internal static WorkManager GetWorkManager()
+        internal static IReadOnlyList<WorkDataSource> GetWorkDataSource()
         {
-            return new WorkManager
+            return new List<WorkDataSource>()
             {
-                WorkCount = 8,
-                WorkDataSources = new List<WorkDataSource>
-                {
                     new WorkDataSource { CodeI = 1, CodeJ = 2, Time = 5 },
                     new WorkDataSource { CodeI = 1, CodeJ = 3, Time = 2 },
                     new WorkDataSource { CodeI = 2, CodeJ = 3, Time = 0 },
@@ -44,7 +41,6 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
                     new WorkDataSource { CodeI = 3, CodeJ = 5, Time = 6 },
                     new WorkDataSource { CodeI = 4, CodeJ = 6, Time = 4 },
                     new WorkDataSource { CodeI = 5, CodeJ = 6, Time = 5 }
-                }
             };
         }
     }

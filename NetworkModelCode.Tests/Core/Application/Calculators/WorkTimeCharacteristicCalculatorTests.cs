@@ -17,7 +17,7 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         [SetUp]
         public void SetUp()
         {
-            WorkTimeCharacteristicCalculator = new WorkTimeCharacteristicCalculator(CalculatorSource.GetWorkManager());
+            WorkTimeCharacteristicCalculator = new WorkTimeCharacteristicCalculator(CalculatorSource.GetWorkDataSource());
 
             WorkTimeCharacteristics = WorkTimeCharacteristicCalculator.Calculate().ToList();
         }
