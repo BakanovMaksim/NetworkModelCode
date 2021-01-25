@@ -1,5 +1,6 @@
 ﻿using NetworkModelCode.Desktop.ViewModels;
 
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace NetworkModelCode.Desktop.Views
@@ -18,6 +19,11 @@ namespace NetworkModelCode.Desktop.Views
         private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ProjectViewModel.CalculateMathModelTemporary();
+        }
+
+        private void tableDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
         }
     }
 }

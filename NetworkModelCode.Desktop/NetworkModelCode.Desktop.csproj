@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NetworkModelCode.Core\NetworkModelCode.Core.csproj" />
     <ProjectReference Include="..\NetworkModelCode.Infrastructure\NetworkModelCode.Infrastructure.csproj" />
   </ItemGroup>
