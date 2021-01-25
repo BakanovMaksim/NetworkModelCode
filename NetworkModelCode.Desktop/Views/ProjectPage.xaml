@@ -8,33 +8,33 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectPage">
 
+    <Page.Resources>
+        <Style x:Key="dataGridStyle" TargetType="DataGrid">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid x:Name="projectGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <TabControl x:Name="mathModelTabControl" Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl x:Name="mathModelTabControl" Grid.Row="0" Grid.Column="1">
             <TabItem x:Name="tableTabItem" Header="Таблица">
-                <DataGrid x:Name="tableDataGrid" ItemsSource="{Binding WorkTimeCharacteristics}">
+                <DataGrid x:Name="tableDataGrid" ItemsSource="{Binding WorkTimeCharacteristicsDTO}" Style="{StaticResource dataGridStyle}" AutoGeneratingColumn="tableDataGrid_AutoGeneratingColumn">
                 </DataGrid>
             </TabItem>
             <TabItem x:Name="graphTabItem" Header="Сетевой график"/>
         </TabControl>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <RichTextBox x:Name="dataSourceRichTextBox" Grid.Column="0">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding Path=Project.Data, Mode=TwoWay}"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-            <Button x:Name="enterButton" Grid.Column="1" Click="enterButton_Click" Margin="100"/>
-        </Grid>
+        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="1" Click="enterButton_Click" Margin="100"/>
     </Grid>
 </Page>

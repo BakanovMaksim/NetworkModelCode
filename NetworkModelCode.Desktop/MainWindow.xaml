@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkModelCode.DesktopWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterOwner" WindowState="Maximized">
 
     <DockPanel x:Name="mainDockPanel">
         <Menu x:Name="applicaionMenu" DockPanel.Dock="Top">
