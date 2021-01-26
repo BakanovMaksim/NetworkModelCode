@@ -8,17 +8,12 @@
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterOwner" WindowState="Maximized">
 
     <DockPanel x:Name="mainDockPanel">
-        <Menu x:Name="applicaionMenu" DockPanel.Dock="Top">
-            <MenuItem x:Name="fileMenuItem" Header="Файл">
-                
-            </MenuItem>
-            <MenuItem x:Name="editMenuItem" Header="Правка">
-                
-            </MenuItem>
+        <Menu x:Name="applicationMenu" DockPanel.Dock="Top" HorizontalAlignment="Center">
             <MenuItem x:Name="projectMenuItem" Header="Проект">
                 <MenuItem Header="Новый проект" Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Последний проект"></MenuItem>
+                <MenuItem x:Name="existingProjectMenuItem" Header="Последний проект" Click="existingProjectMenuItem_Click" ></MenuItem>
             </MenuItem>
+            <MenuItem x:Name="goBackMenuItem" Header="Назад" Click="goBackMenuItem_Click"/>
         </Menu>
         <Frame x:Name="mainFrame" DockPanel.Dock="Bottom">
             

@@ -25,16 +25,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl x:Name="mathModelTabControl" Grid.Row="0" Grid.Column="1">
-            <TabItem x:Name="tableTabItem" Header="Таблица">
-                <DataGrid x:Name="tableDataGrid" ItemsSource="{Binding WorkTimeCharacteristicsDTO}" Style="{StaticResource dataGridStyle}" AutoGeneratingColumn="tableDataGrid_AutoGeneratingColumn">
-                </DataGrid>
-            </TabItem>
-            <TabItem x:Name="graphTabItem" Header="Сетевой график"/>
-        </TabControl>
-        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="1" Click="enterButton_Click" Margin="100"/>
+        <DataGrid x:Name="workSourceDataGrid" Grid.Row="0" Grid.Column="1" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkDataSourceDTOs, Mode=TwoWay}"
+                  AutoGeneratingColumn="workSourceDataGrid_AutoGeneratingColumn">
+        </DataGrid>
+
+        <DataGrid x:Name="workTimeCharacteristicDataGrid" Grid.Row="0" Grid.Column="2" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicsDTOs}"
+                  AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
+        </DataGrid>
+        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="2" Click="enterButton_Click" Margin="100"/>
     </Grid>
 </Page>

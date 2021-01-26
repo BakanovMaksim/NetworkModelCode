@@ -18,10 +18,15 @@ namespace NetworkModelCode.Desktop.Views
 
         private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ProjectViewModel.CalculateMathModelTemporary();
+            ProjectViewModel.CalculateWorkTimeCharacteristic();
         }
 
-        private void tableDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
+        }
+
+        private void workSourceDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
         }
