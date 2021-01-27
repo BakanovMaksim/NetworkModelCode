@@ -19,7 +19,7 @@ namespace NetworkModelCode.Tests.Infrastructure.Business.Parsers
         }
 
         [TestCaseSource(typeof(ParserSource), nameof(ParserSource.GetBuffers))] 
-        public void TryParseWorkDataSourceTests(string buffer, bool expectedIsTry, IReadOnlyList<WorkDataSource> expectedWorkDataSource)
+        public void TryParseWorkDataSourceTests(string buffer, bool expectedIsTry, IReadOnlyList<ItemDataSource> expectedWorkDataSource)
         {
             var actualIsTry = Parser.TryParseWorkDataSource(buffer, out var actualWorkDataSource);
 

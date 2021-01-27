@@ -30,5 +30,15 @@ namespace NetworkModelCode.Desktop.Views
         {
             e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
         }
+
+        private async void importButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await ProjectViewModel.ImportWorkDataSourceAsync();
+        }
+
+        private void exportButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

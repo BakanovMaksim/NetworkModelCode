@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 
-using System.Collections.Generic;
-
-namespace NetworkModelCode.Desktop.Infrastructure
+namespace NetworkModelCode.Infrastructure.Business
 {
     public class Mapper
     {

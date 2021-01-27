@@ -13,7 +13,7 @@ namespace NetworkModelCode.Tests.Infrastructure.Business.Parsers
             yield return new TestCaseData(
                 "n=7\ni=1,2,5,3,4,11,6\nj=4,3,1,5,13,3,15\nt=1,2,3,4,5,6,7",
                 true,
-                new List<WorkDataSource>
+                new List<ItemDataSource>
                 {
                     new(){CodeI = 1, CodeJ=4,Time=1},
                     new(){CodeI=2,CodeJ=3,Time=2},

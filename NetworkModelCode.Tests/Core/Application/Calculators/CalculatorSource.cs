@@ -29,18 +29,18 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
                 new List<int> { 0, 3, 0, 4, 0, 0, 0, 0 });
         }
 
-        internal static IReadOnlyList<WorkDataSource> GetWorkDataSource()
+        internal static IReadOnlyList<ItemDataSource> GetWorkDataSource()
         {
-            return new List<WorkDataSource>()
+            return new List<ItemDataSource>()
             {
-                    new WorkDataSource { CodeI = 1, CodeJ = 2, Time = 5 },
-                    new WorkDataSource { CodeI = 1, CodeJ = 3, Time = 2 },
-                    new WorkDataSource { CodeI = 2, CodeJ = 3, Time = 0 },
-                    new WorkDataSource { CodeI = 2, CodeJ = 4, Time = 3 },
-                    new WorkDataSource { CodeI = 3, CodeJ = 4, Time = 7 },
-                    new WorkDataSource { CodeI = 3, CodeJ = 5, Time = 6 },
-                    new WorkDataSource { CodeI = 4, CodeJ = 6, Time = 4 },
-                    new WorkDataSource { CodeI = 5, CodeJ = 6, Time = 5 }
+                    new ItemDataSource { CodeI = 1, CodeJ = 2, Time = 5 },
+                    new ItemDataSource { CodeI = 1, CodeJ = 3, Time = 2 },
+                    new ItemDataSource { CodeI = 2, CodeJ = 3, Time = 0 },
+                    new ItemDataSource { CodeI = 2, CodeJ = 4, Time = 3 },
+                    new ItemDataSource { CodeI = 3, CodeJ = 4, Time = 7 },
+                    new ItemDataSource { CodeI = 3, CodeJ = 5, Time = 6 },
+                    new ItemDataSource { CodeI = 4, CodeJ = 6, Time = 4 },
+                    new ItemDataSource { CodeI = 5, CodeJ = 6, Time = 5 }
             };
         }
     }
