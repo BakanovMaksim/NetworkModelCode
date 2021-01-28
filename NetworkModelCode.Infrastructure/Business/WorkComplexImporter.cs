@@ -9,7 +9,7 @@ namespace NetworkModelCode.Infrastructure.Business
 {
     public class WorkComplexImporter
     {
-        private WorkTextParser Parser { get; }
+        private WorkComplexTextParser Parser { get; }
 
         public WorkComplexImporter()
         {

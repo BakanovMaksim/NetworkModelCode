@@ -2,7 +2,7 @@
 
 namespace NetworkModelCode.Desktop.DTO
 {
-    public class WorkDataSourceDTO
+    public class ItemDataSourceDTO
     {
         [DisplayName("i")]
         public int CodeI { get; set; }

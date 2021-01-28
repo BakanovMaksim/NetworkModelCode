@@ -36,9 +36,9 @@ namespace NetworkModelCode.Desktop.Views
             await ProjectViewModel.ImportWorkDataSourceAsync();
         }
 
-        private void exportButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void exportButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            await ProjectViewModel.ExportWorkComplexAsync();
         }
     }
 }
