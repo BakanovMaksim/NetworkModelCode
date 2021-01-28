@@ -2,7 +2,7 @@
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
-    public class WorkDataSource : BaseEntity
+    public class ItemDataSource : BaseEntity
     {
         public Guid WorkManagerId { get; set; }
 
@@ -14,13 +14,13 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public override bool Equals(object obj)
         {
-            var workDataSource = obj as WorkDataSource;
+            var itemDataSource = obj as ItemDataSource;
 
-            if (workDataSource == null)
+            if (itemDataSource == null)
                 return false;
 
             return
-                (this.CodeI == workDataSource.CodeI) && (this.CodeJ == workDataSource.CodeJ) && (this.Time == workDataSource.Time)
+                (this.CodeI == itemDataSource.CodeI) && (this.CodeJ == itemDataSource.CodeJ) && (this.Time == itemDataSource.Time)
                 ? true : false;
         }
 
@@ -32,10 +32,10 @@ namespace NetworkModelCode.Core.Domain.Entities
 
     public static class WorkDataSourceExtension
     {
-        public static string ToStringCustom(this WorkDataSource workDataSource)
+        public static string ToStringCustom(this ItemDataSource itemDataSource)
         {
-            return $"{workDataSource.CodeI}-{workDataSource.CodeJ} " +
-                $"{workDataSource.Time}";
+            return $"{itemDataSource.CodeI}-{itemDataSource.CodeJ} " +
+                $"{itemDataSource.Time}";
         }
     }
 }

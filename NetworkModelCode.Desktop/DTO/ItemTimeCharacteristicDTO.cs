@@ -2,7 +2,7 @@
 
 namespace NetworkModelCode.Desktop.DTO
 {
-    public class WorkTimeCharacteristicDTO
+    public class ItemTimeCharacteristicDTO
     {
         [DisplayName("Раннее начало")]
         public int EarlyStart { get; set; }

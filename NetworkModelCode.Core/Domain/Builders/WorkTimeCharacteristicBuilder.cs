@@ -4,11 +4,11 @@ namespace NetworkModelCode.Core.Domain.Builders
 {
     public sealed class WorkTimeCharacteristicBuilder
     {
-        private WorkTimeCharacteristic WorkTimeCharacteristic;
+        private ItemTimeCharacteristic WorkTimeCharacteristic;
 
         public WorkTimeCharacteristicBuilder()
         {
-            WorkTimeCharacteristic = new WorkTimeCharacteristic();
+            WorkTimeCharacteristic = new ItemTimeCharacteristic();
         }
 
         public WorkTimeCharacteristicBuilder SetEarly(int earlyStart, int earlyFinish)
@@ -32,7 +32,7 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public WorkTimeCharacteristic Build()
+        public ItemTimeCharacteristic Build()
         {
             return WorkTimeCharacteristic;
         }

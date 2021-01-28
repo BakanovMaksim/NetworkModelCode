@@ -23,18 +23,25 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="80"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl x:Name="mathModelTabControl" Grid.Row="0" Grid.Column="1">
-            <TabItem x:Name="tableTabItem" Header="Таблица">
-                <DataGrid x:Name="tableDataGrid" ItemsSource="{Binding WorkTimeCharacteristicsDTO}" Style="{StaticResource dataGridStyle}" AutoGeneratingColumn="tableDataGrid_AutoGeneratingColumn">
-                </DataGrid>
-            </TabItem>
-            <TabItem x:Name="graphTabItem" Header="Сетевой график"/>
-        </TabControl>
-        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="1" Click="enterButton_Click" Margin="100"/>
+        <ToolBarTray Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch">
+            <ToolBar>
+                <Button x:Name="importButton" Content="Импорт" Click="importButton_Click" />
+                <Button x:Name="exportButton" Content="Экспорт" Click="exportButton_Click" />
+            </ToolBar>
+        </ToolBarTray>
+        <DataGrid x:Name="workSourceDataGrid" Grid.Row="0" Grid.Column="1" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkDataSourceDTOs, Mode=TwoWay}"
+                  AutoGeneratingColumn="workSourceDataGrid_AutoGeneratingColumn">
+        </DataGrid>
+
+        <DataGrid x:Name="workTimeCharacteristicDataGrid" Grid.Row="0" Grid.Column="2" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicDTOs}"
+                  AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
+        </DataGrid>
+        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="2" Click="enterButton_Click" Margin="100"/>
     </Grid>
 </Page>

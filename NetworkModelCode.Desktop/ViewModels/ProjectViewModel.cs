@@ -1,47 +1,78 @@
-﻿using AutoMapper;
-
-using NetworkModelCode.Core.Application.Calculators;
+﻿using NetworkModelCode.Core.Application.Calculators;
 using NetworkModelCode.Core.Domain.Entities;
 using NetworkModelCode.Desktop.DTO;
-using NetworkModelCode.Desktop.Models;
-using NetworkModelCode.Infrastructure.Business.Parsers;
+using NetworkModelCode.Desktop.Services;
+using NetworkModelCode.Infrastructure.Business;
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NetworkModelCode.Desktop.ViewModels
 {
     internal class ProjectViewModel
     {
-        public Project Project { get; }
-        public IReadOnlyList<WorkDataSource> workDataSource;
-        public ObservableCollection<WorkTimeCharacteristicDTO> WorkTimeCharacteristicsDTO { get; set; }
-        public WorkTextParser Parser { get; }
+        private IDialogService DefaultDialogService { get; }
+        public WorkComplexImporter Importer { get; }
+        public WorkComplexExporter Exporter { get; }
+        public ObservableCollection<ItemDataSourceDTO> WorkDataSourceDTOs { get; set; }
+        public ObservableCollection<ItemTimeCharacteristicDTO> WorkTimeCharacteristicDTOs { get; set; }
 
         public ProjectViewModel()
         {
-            Project = new();
-            Parser = new();
-            WorkTimeCharacteristicsDTO = new();
+            DefaultDialogService = new DefaultDialogService();
+            Importer = new();
+            Exporter = new();
+            WorkDataSourceDTOs = new();
+            WorkTimeCharacteristicDTOs = new();
         }
 
-        public void CalculateMathModelTemporary()
+        public void CalculateWorkTimeCharacteristic()
         {
-            var isTry = Parser.TryParseWorkDataSource(Project.Data, out workDataSource);
+            var workDataSource = Mapper.
+                MapCollection<ItemDataSourceDTO,ItemDataSource, ObservableCollection<ItemDataSourceDTO>,ObservableCollection<ItemDataSource>>(WorkDataSourceDTOs);
 
-            if (isTry)
+            var calculator = new WorkTimeCharacteristicCalculator(workDataSource.ToList());
+            var workTimeCharacteristics = calculator.Calculate();
+
+            foreach (var itemTimeCharacteristic in workTimeCharacteristics)
             {
-                var calculator = new WorkTimeCharacteristicCalculator(workDataSource);
-                var workTimeCharacteristics = calculator.Calculate();
+                var workTimeCharacteristicDto = Mapper.Map<ItemTimeCharacteristic, ItemTimeCharacteristicDTO>(itemTimeCharacteristic);
+                WorkTimeCharacteristicDTOs.Add(workTimeCharacteristicDto);
+            }
+        }
 
-                var configuration = new MapperConfiguration(cfg => cfg.CreateMap<WorkTimeCharacteristic, WorkTimeCharacteristicDTO>());
-                var mapper = new Mapper(configuration);
+        public async Task ImportWorkDataSourceAsync()
+        {
+            var openFileDialog = DefaultDialogService.OpenFile();
 
-                foreach (var workTimeCharacteristic in workTimeCharacteristics)
+            if (openFileDialog)
+            {
+                var workDataSource = await Importer.ImportAsync(DefaultDialogService.FileName);
+
+                foreach (var itemDataSource in workDataSource)
                 {
-                    var workTimeCharacteristicDto = mapper.Map<WorkTimeCharacteristicDTO>(workTimeCharacteristic);
-                    WorkTimeCharacteristicsDTO.Add(workTimeCharacteristicDto);
+                    var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(itemDataSource);
+                    WorkDataSourceDTOs.Add(workDataSourceDTO);
                 }
+            }
+        }
+
+        public async Task ExportWorkComplexAsync()
+        {
+            var saveFileDialog = DefaultDialogService.SaveFile();
+
+            if(saveFileDialog)
+            {
+                var workDataSource = Mapper
+                    .MapCollection<ItemDataSourceDTO, ItemDataSource, ObservableCollection<ItemDataSourceDTO>, ObservableCollection<ItemDataSource>>(WorkDataSourceDTOs);
+                var workTimeCharacteristics = Mapper
+                    .MapCollection<ItemTimeCharacteristicDTO, ItemTimeCharacteristic, ObservableCollection<ItemTimeCharacteristicDTO>, ObservableCollection<ItemTimeCharacteristic>>(WorkTimeCharacteristicDTOs);
+                var workCount = workDataSource.Count;
+
+                await Exporter.ExportAsync(
+                    DefaultDialogService.FileName,
+                    new WorkComplex() { WorkCount = workCount, WorkDataSources = workDataSource.ToList(), WorkTimeCharacteristics = workTimeCharacteristics.ToList() });
             }
         }
     }

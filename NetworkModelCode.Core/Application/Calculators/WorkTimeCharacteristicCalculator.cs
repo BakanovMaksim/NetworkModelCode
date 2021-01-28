@@ -8,14 +8,14 @@ namespace NetworkModelCode.Core.Application.Calculators
 {
     public class WorkTimeCharacteristicCalculator
     {
-        private IReadOnlyList<WorkDataSource> WorkDataSource { get; }
+        private IReadOnlyList<ItemDataSource> WorkDataSource { get; }
 
-        public WorkTimeCharacteristicCalculator(IReadOnlyList<WorkDataSource> workDataSource)
+        public WorkTimeCharacteristicCalculator(IReadOnlyList<ItemDataSource> workDataSource)
         {
             WorkDataSource = workDataSource;
         }
 
-        public IEnumerable<WorkTimeCharacteristic> Calculate()
+        public IEnumerable<ItemTimeCharacteristic> Calculate()
         {
             var earlys = CalculateEarlyStartAndFinish();
             var earlyStarts = earlys.Item1.ToList();

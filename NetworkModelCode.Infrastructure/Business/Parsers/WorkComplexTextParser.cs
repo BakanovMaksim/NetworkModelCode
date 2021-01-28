@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace NetworkModelCode.Infrastructure.Business.Parsers
 {
-    public class WorkTextParser
+    public class WorkComplexTextParser
     {
-        public bool TryParseWorkDataSource(string buffer, out IReadOnlyList<WorkDataSource> workDataSource)
+        public bool TryParseWorkDataSource(string buffer, out IReadOnlyList<ItemDataSource> workDataSource)
         {
             if (string.IsNullOrWhiteSpace(buffer))
             {
@@ -22,11 +22,11 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
             var codeJs = ParseLine(lines[2]);
             var times = ParseLine(lines[3]);
 
-            var workData = new List<WorkDataSource>();
+            var workData = new List<ItemDataSource>();
             for(int k = 0;k<workCount;k++)
             {
                 workData.Add(
-                    new WorkDataSource()
+                    new ItemDataSource()
                     {
                         CodeI = codeIs[k],
                         CodeJ = codeJs[k],

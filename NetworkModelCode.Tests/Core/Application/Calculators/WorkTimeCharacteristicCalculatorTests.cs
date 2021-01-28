@@ -12,7 +12,7 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
     internal class WorkTimeCharacteristicCalculatorTests
     {
         internal WorkTimeCharacteristicCalculator WorkTimeCharacteristicCalculator { get; set; }
-        internal IReadOnlyList<WorkTimeCharacteristic> WorkTimeCharacteristics { get; set; }
+        internal IReadOnlyList<ItemTimeCharacteristic> WorkTimeCharacteristics { get; set; }
 
         [SetUp]
         public void SetUp()
