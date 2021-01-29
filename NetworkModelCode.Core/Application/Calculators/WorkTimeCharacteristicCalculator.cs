@@ -8,15 +8,12 @@ namespace NetworkModelCode.Core.Application.Calculators
 {
     public class WorkTimeCharacteristicCalculator
     {
-        private IReadOnlyList<ItemDataSource> WorkDataSource { get; }
+        private IReadOnlyList<ItemDataSource> WorkDataSource { get; set; }
 
-        public WorkTimeCharacteristicCalculator(IReadOnlyList<ItemDataSource> workDataSource)
+        public IEnumerable<ItemTimeCharacteristic> Calculate(IReadOnlyList<ItemDataSource> workDataSource)
         {
             WorkDataSource = workDataSource;
-        }
 
-        public IEnumerable<ItemTimeCharacteristic> Calculate()
-        {
             var earlys = CalculateEarlyStartAndFinish();
             var earlyStarts = earlys.Item1.ToList();
             var earlyFinishes = earlys.Item2.ToList();
@@ -28,7 +25,7 @@ namespace NetworkModelCode.Core.Application.Calculators
             for (int k = 0;k < WorkDataSource.Count; k++)
             {
                 yield return 
-                    new WorkTimeCharacteristicBuilder()
+                    new ItemTimeCharacteristicBuilder()
                     .SetEarly(earlyStarts[k], earlyFinishes[k])
                     .SetLate(lateStarts[k], lateFinishes[k])
                     .SetReserve(reserveFullTimes[k], reserveFreeTimes[k])

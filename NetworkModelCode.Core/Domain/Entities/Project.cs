@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
-    public class WorkComplex : BaseEntity
+    public class Project : BaseEntity
     {
         public int WorkCount { get; set; }
 
-        public IReadOnlyList<ItemDataSource> WorkDataSources { get; set; }
+        public IReadOnlyList<ItemDataSource> WorkDataSource { get; set; }
 
         public IReadOnlyList<ItemTimeCharacteristic> WorkTimeCharacteristics { get; set; }
+
+        public int CriticalPathLength { get; set; }
 
         public override string ToString() => $"{WorkCount}";
     }

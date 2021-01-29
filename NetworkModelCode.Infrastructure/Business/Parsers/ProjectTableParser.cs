@@ -4,25 +4,25 @@ using System.Text;
 
 namespace NetworkModelCode.Infrastructure.Business.Parsers
 {
-    public class WorkComplexTableParser
+    public class ProjectTableParser
     {
-        public bool TryParseWorkComplex(WorkComplex workComplex, out string buffer)
+        public bool TryParseProject(Project project, out string buffer)
         {
-            if (workComplex == null)
+            if (project == null)
             {
                 buffer = null;
                 return false;
             }
 
             var stringBuilder = new StringBuilder()
-                .AppendLine($"{workComplex.WorkCount}");
+                .AppendLine($"{project.WorkCount}");
 
-            foreach(var item in workComplex.WorkDataSources)
+            foreach(var item in project.WorkDataSource)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }
 
-            foreach(var item in workComplex.WorkTimeCharacteristics)
+            foreach(var item in project.WorkTimeCharacteristics)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }

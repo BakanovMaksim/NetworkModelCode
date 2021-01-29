@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NetworkModelCode.Infrastructure.Business.Parsers
 {
-    public class WorkComplexTextParser
+    public class ProjectTextParser
     {
         public bool TryParseWorkDataSource(string buffer, out IReadOnlyList<ItemDataSource> workDataSource)
         {

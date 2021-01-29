@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace NetworkModelCode.Infrastructure.Business
 {
-    public class WorkComplexImporter
+    public class ProjectImporter
     {
-        private WorkComplexTextParser Parser { get; }
+        private ProjectTextParser Parser { get; }
 
-        public WorkComplexImporter()
+        public ProjectImporter()
         {
             Parser = new();
         }
@@ -31,8 +31,10 @@ namespace NetworkModelCode.Infrastructure.Business
                 return null;
             }
 
-            using var streamReader = new StreamReader(fileName);
-            return await streamReader.ReadToEndAsync();
+            using (var streamReader = new StreamReader(fileName))
+            {
+                return await streamReader.ReadToEndAsync();
+            }
         }
     }
 }

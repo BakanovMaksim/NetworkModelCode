@@ -35,13 +35,22 @@
                 <Button x:Name="exportButton" Content="Экспорт" Click="exportButton_Click" />
             </ToolBar>
         </ToolBarTray>
-        <DataGrid x:Name="workSourceDataGrid" Grid.Row="0" Grid.Column="1" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkDataSourceDTOs, Mode=TwoWay}"
+
+        <Border Grid.Row="0" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DataGrid x:Name="workSourceDataGrid" DockPanel.Dock="Top" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkDataSourceDTOs, Mode=TwoWay}"
                   AutoGeneratingColumn="workSourceDataGrid_AutoGeneratingColumn">
-        </DataGrid>
+                </DataGrid>
+                <Button x:Name="enterButton" DockPanel.Dock="Bottom" Content="Расчет" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="enterButton_Click"/>
+            </DockPanel>
+        </Border>
 
         <DataGrid x:Name="workTimeCharacteristicDataGrid" Grid.Row="0" Grid.Column="2" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicDTOs}"
-                  AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
+                  IsReadOnly="True" AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
         </DataGrid>
-        <Button x:Name="enterButton" Grid.Row="1" Grid.Column="2" Click="enterButton_Click" Margin="100"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Label Content="Продолжительность проекта - "/>
+            <TextBlock Text="{Binding Project.CriticalPathLength}"/>
+        </StackPanel>
     </Grid>
 </Page>

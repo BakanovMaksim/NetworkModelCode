@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace NetworkModelCode.Tests.Infrastructure.Business.Importers
 {
     [TestFixture]
-    public class WorkComplexImporterTests
+    public class ProjectImporterTests
     {
-        private WorkComplexImporter Importer { get; set; }
+        private ProjectImporter Importer { get; set; }
 
         [SetUp]
         public void SetUp()

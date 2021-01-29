@@ -10,7 +10,7 @@ namespace NetworkModelCode.Tests.Infrastructure.Business.Parsers
     [TestFixture]
     internal class WorkTextParserTests
     {
-        internal WorkComplexTextParser Parser { get; set; }
+        internal ProjectTextParser Parser { get; set; }
 
         [SetUp]
         public void SetUp()
