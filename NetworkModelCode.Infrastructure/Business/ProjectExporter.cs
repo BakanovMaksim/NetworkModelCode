@@ -9,16 +9,9 @@ namespace NetworkModelCode.Infrastructure.Business
 {
     public class ProjectExporter
     {
-        private ProjectTableParser Parser { get; }
-
-        public ProjectExporter()
-        {
-            Parser = new();
-        }
-
         public async Task ExportAsync(string fileName,Project project)
         {
-            var isTry = Parser.TryParseProject(project, out var buffer);
+            var isTry = ProjectTableParser.TryParseProject(project, out var buffer);
 
             if(isTry)
             {

@@ -45,12 +45,13 @@
             </DockPanel>
         </Border>
 
-        <DataGrid x:Name="workTimeCharacteristicDataGrid" Grid.Row="0" Grid.Column="2" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicDTOs}"
+        <Border Grid.Row="0" Grid.Column="2" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DataGrid x:Name="workTimeCharacteristicDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicDTOs}"
                   IsReadOnly="True" AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
-        </DataGrid>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Label Content="Продолжительность проекта - "/>
-            <TextBlock Text="{Binding Project.CriticalPathLength}"/>
-        </StackPanel>
+                </DataGrid>
+                <TextBlock DockPanel.Dock="Bottom" Text="{Binding Project.CriticalPathLength}"/>
+            </DockPanel>
+        </Border>
     </Grid>
 </Page>

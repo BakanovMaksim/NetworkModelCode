@@ -6,7 +6,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 {
     public class ProjectTableParser
     {
-        public bool TryParseProject(Project project, out string buffer)
+        public static bool TryParseProject(Project project, out string buffer)
         {
             if (project == null)
             {
@@ -14,15 +14,14 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
                 return false;
             }
 
-            var stringBuilder = new StringBuilder()
-                .AppendLine($"{project.WorkCount}");
+            var stringBuilder = new StringBuilder();
 
-            foreach(var item in project.WorkDataSource)
+            foreach(var item in project.ItemsDataSource)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }
 
-            foreach(var item in project.WorkTimeCharacteristics)
+            foreach(var item in project.ItemsTimeCharacteristic)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }

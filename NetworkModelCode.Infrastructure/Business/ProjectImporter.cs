@@ -1,8 +1,7 @@
-﻿using NetworkModelCode.Infrastructure.Business.Parsers;
-using NetworkModelCode.Core.Domain.Entities;
+﻿using NetworkModelCode.Core.Domain.Entities;
+using NetworkModelCode.Infrastructure.Business.Parsers;
 
 using System.IO;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NetworkModelCode.Infrastructure.Business
@@ -16,12 +15,12 @@ namespace NetworkModelCode.Infrastructure.Business
             Parser = new();
         }
 
-        public async Task<IReadOnlyList<ItemDataSource>> ImportAsync(string fileName)
+        public async Task<Project> ImportAsync(string fileName)
         {
             var buffer = await ReadWorkDataSourceFileAsync(fileName);
-            var isTry = Parser.TryParseWorkDataSource(buffer, out var workDataSource);
+            var isTry = ProjectTextParser.TryParseProject(buffer, out var project);
 
-            return isTry ? workDataSource : null;
+            return isTry ? project : null;
         }
 
         private async Task<string> ReadWorkDataSourceFileAsync(string fileName)

@@ -42,8 +42,8 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             Project = new ProjectBuilder()
                 .SetWorkCount(workDataSource.Count)
-                .SetWorkDataSource(workDataSource.ToList())
-                .SetWorkTimeCharacteristics(workTimeCharacteristics)
+                .SetItemsDataSource(workDataSource.ToList())
+                .SetItemsTimeCharacteristic(workTimeCharacteristics)
                 .SetCriticalPathLength(length)
                 .Build();
 
@@ -60,9 +60,9 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             if (openFileDialog)
             {
-                var workDataSource = await Importer.ImportAsync(DefaultDialogService.FileName);
+                var project = await Importer.ImportAsync(DefaultDialogService.FileName);
 
-                foreach (var itemDataSource in workDataSource)
+                foreach (var itemDataSource in project.ItemsDataSource)
                 {
                     var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(itemDataSource);
                     WorkDataSourceDTOs.Add(workDataSourceDTO);

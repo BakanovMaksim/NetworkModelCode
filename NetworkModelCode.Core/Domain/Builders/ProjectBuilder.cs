@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
 {
-    public class ProjectBuilder
+    public sealed class ProjectBuilder
     {
         private Project Project { get; }
 
@@ -19,15 +19,15 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public ProjectBuilder SetWorkDataSource(IReadOnlyList<ItemDataSource> workDataSource)
+        public ProjectBuilder SetItemsDataSource(IReadOnlyList<ItemDataSource> itemsDataSource)
         {
-            Project.WorkDataSource = workDataSource;
+            Project.ItemsDataSource = itemsDataSource;
             return this;
         }
 
-        public ProjectBuilder SetWorkTimeCharacteristics(IReadOnlyList<ItemTimeCharacteristic> workTimeCharacteristics)
+        public ProjectBuilder SetItemsTimeCharacteristic(IReadOnlyList<ItemTimeCharacteristic> itemsTimeCharacteristic)
         {
-            Project.WorkTimeCharacteristics = workTimeCharacteristics;
+            Project.ItemsTimeCharacteristic = itemsTimeCharacteristic;
             return this;
         }
 
