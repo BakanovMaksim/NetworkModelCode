@@ -3,15 +3,15 @@ using NetworkModelCode.Infrastructure.Business;
 
 using NUnit.Framework;
 
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace NetworkModelCode.Tests.Infrastructure.Business.Importers
 {
     [TestFixture]
-    public class WorkComplexImporterTests
+    public class ProjectImporterTests
     {
-        private WorkComplexImporter Importer { get; set; }
+        private ProjectImporter Importer { get; set; }
 
         [SetUp]
         public void SetUp()
@@ -20,11 +20,11 @@ namespace NetworkModelCode.Tests.Infrastructure.Business.Importers
         }
 
         [TestCaseSource(typeof(ImporterSource),nameof(ImporterSource.GetTestCaseData))]
-        public async Task ImportAsyncTests(string fileName, IReadOnlyList<ItemDataSource> expected)
+        public async Task ImportAsyncTests(string fileName, Type expectedType)
         {
-            var actual = await Importer.ImportAsync(fileName);
+            var actualProject = await Importer.ImportAsync(fileName);
 
-            CollectionAssert.AreEqual(expected, actual);
+            Assert.IsInstanceOf(expectedType, actualProject);
         }
     }
 }

@@ -29,6 +29,11 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
                 new List<int> { 0, 3, 0, 4, 0, 0, 0, 0 });
         }
 
+        internal static IEnumerable<TestCaseData> GetCriticalPathLength()
+        {
+            yield return new TestCaseData(27);
+        }
+
         internal static IReadOnlyList<ItemDataSource> GetWorkDataSource()
         {
             return new List<ItemDataSource>()

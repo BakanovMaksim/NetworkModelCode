@@ -7,18 +7,11 @@ using System.Threading.Tasks;
 
 namespace NetworkModelCode.Infrastructure.Business
 {
-    public class WorkComplexExporter
+    public class ProjectExporter
     {
-        private WorkComplexTableParser Parser { get; }
-
-        public WorkComplexExporter()
+        public async Task ExportAsync(string fileName,Project project)
         {
-            Parser = new();
-        }
-
-        public async Task ExportAsync(string fileName,WorkComplex workComplex)
-        {
-            var isTry = Parser.TryParseWorkComplex(workComplex, out var buffer);
+            var isTry = ProjectTableParser.TryParseProject(project, out var buffer);
 
             if(isTry)
             {

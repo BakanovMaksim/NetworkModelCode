@@ -1,4 +1,5 @@
 ﻿using NetworkModelCode.Core.Application.Calculators;
+using NetworkModelCode.Core.Domain.Builders;
 using NetworkModelCode.Core.Domain.Entities;
 using NetworkModelCode.Desktop.DTO;
 using NetworkModelCode.Desktop.Services;
@@ -13,10 +14,11 @@ namespace NetworkModelCode.Desktop.ViewModels
     internal class ProjectViewModel
     {
         private IDialogService DefaultDialogService { get; }
-        public WorkComplexImporter Importer { get; }
-        public WorkComplexExporter Exporter { get; }
+        private ProjectImporter Importer { get; }
+        private ProjectExporter Exporter { get; }
         public ObservableCollection<ItemDataSourceDTO> WorkDataSourceDTOs { get; set; }
         public ObservableCollection<ItemTimeCharacteristicDTO> WorkTimeCharacteristicDTOs { get; set; }
+        public Project Project { get; private set; }
 
         public ProjectViewModel()
         {
@@ -32,8 +34,14 @@ namespace NetworkModelCode.Desktop.ViewModels
             var workDataSource = Mapper.
                 MapCollection<ItemDataSourceDTO,ItemDataSource, ObservableCollection<ItemDataSourceDTO>,ObservableCollection<ItemDataSource>>(WorkDataSourceDTOs);
 
-            var calculator = new WorkTimeCharacteristicCalculator(workDataSource.ToList());
-            var workTimeCharacteristics = calculator.Calculate();
+            var workTimeCharacteristiccalculator = new WorkTimeCharacteristicCalculator();
+            var workTimeCharacteristics = workTimeCharacteristiccalculator.Calculate(workDataSource.ToList()).ToList();
+
+            Project = new ProjectBuilder()
+                .SetWorkCount(workDataSource.Count)
+                .SetItemsDataSource(workDataSource.ToList())
+                .SetItemsTimeCharacteristic(workTimeCharacteristics)
+                .Build();
 
             foreach (var itemTimeCharacteristic in workTimeCharacteristics)
             {
@@ -48,9 +56,9 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             if (openFileDialog)
             {
-                var workDataSource = await Importer.ImportAsync(DefaultDialogService.FileName);
+                var project = await Importer.ImportAsync(DefaultDialogService.FileName);
 
-                foreach (var itemDataSource in workDataSource)
+                foreach (var itemDataSource in project.ItemsDataSource)
                 {
                     var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(itemDataSource);
                     WorkDataSourceDTOs.Add(workDataSourceDTO);
@@ -64,15 +72,7 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             if(saveFileDialog)
             {
-                var workDataSource = Mapper
-                    .MapCollection<ItemDataSourceDTO, ItemDataSource, ObservableCollection<ItemDataSourceDTO>, ObservableCollection<ItemDataSource>>(WorkDataSourceDTOs);
-                var workTimeCharacteristics = Mapper
-                    .MapCollection<ItemTimeCharacteristicDTO, ItemTimeCharacteristic, ObservableCollection<ItemTimeCharacteristicDTO>, ObservableCollection<ItemTimeCharacteristic>>(WorkTimeCharacteristicDTOs);
-                var workCount = workDataSource.Count;
-
-                await Exporter.ExportAsync(
-                    DefaultDialogService.FileName,
-                    new WorkComplex() { WorkCount = workCount, WorkDataSources = workDataSource.ToList(), WorkTimeCharacteristics = workTimeCharacteristics.ToList() });
+                await Exporter.ExportAsync(DefaultDialogService.FileName, Project);
             }
         }
     }

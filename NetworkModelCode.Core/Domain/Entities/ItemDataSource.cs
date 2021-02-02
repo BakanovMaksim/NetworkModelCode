@@ -4,7 +4,9 @@ namespace NetworkModelCode.Core.Domain.Entities
 {
     public class ItemDataSource : BaseEntity
     {
-        public Guid WorkManagerId { get; set; }
+        public Guid ProjectId { get; set; }
+
+        public string Title { get; set; }
 
         public int CodeI { get; set; }
        
@@ -34,7 +36,7 @@ namespace NetworkModelCode.Core.Domain.Entities
     {
         public static string ToStringCustom(this ItemDataSource itemDataSource)
         {
-            return $"{itemDataSource.CodeI}-{itemDataSource.CodeJ} " +
+            return $"{itemDataSource.Title} {itemDataSource.CodeI} {itemDataSource.CodeJ} " +
                 $"{itemDataSource.Time}";
         }
     }
