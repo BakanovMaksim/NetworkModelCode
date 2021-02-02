@@ -10,8 +10,6 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public IReadOnlyList<ItemTimeCharacteristic> ItemsTimeCharacteristic { get; set; }
 
-        public int CriticalPathLength { get; set; }
-
         public override string ToString() => $"{WorkCount}";
     }
 }

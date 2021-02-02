@@ -4,7 +4,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 {
     public class ItemDataSource : BaseEntity
     {
-        public Guid WorkManagerId { get; set; }
+        public Guid ProjectId { get; set; }
 
         public string Title { get; set; }
 

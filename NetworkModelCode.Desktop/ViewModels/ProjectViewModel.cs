@@ -37,14 +37,10 @@ namespace NetworkModelCode.Desktop.ViewModels
             var workTimeCharacteristiccalculator = new WorkTimeCharacteristicCalculator();
             var workTimeCharacteristics = workTimeCharacteristiccalculator.Calculate(workDataSource.ToList()).ToList();
 
-            var criticalPathCalctulator = new CriticalPathCalculator();
-            var length = criticalPathCalctulator.Calculate(workDataSource.ToList(), workTimeCharacteristics);
-
             Project = new ProjectBuilder()
                 .SetWorkCount(workDataSource.Count)
                 .SetItemsDataSource(workDataSource.ToList())
                 .SetItemsTimeCharacteristic(workTimeCharacteristics)
-                .SetCriticalPathLength(length)
                 .Build();
 
             foreach (var itemTimeCharacteristic in workTimeCharacteristics)

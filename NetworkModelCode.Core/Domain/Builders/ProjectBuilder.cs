@@ -31,12 +31,6 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public ProjectBuilder SetCriticalPathLength(int length)
-        {
-            Project.CriticalPathLength = length;
-            return this;
-        }
-
         public Project Build()
         {
             return Project;

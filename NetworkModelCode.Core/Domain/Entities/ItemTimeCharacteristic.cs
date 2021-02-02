@@ -4,7 +4,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 {
     public class ItemTimeCharacteristic : BaseEntity
     {
-        public Guid WorkManagerId { get; set; }
+        public Guid ProjectId { get; set; }
 
         public int EarlyStart { get; set; }
 
