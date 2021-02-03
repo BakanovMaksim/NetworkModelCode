@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
+using GraphX;
+
 namespace NetworkModelCode.Desktop.ViewModels
 {
     internal class ProjectViewModel
@@ -74,6 +76,11 @@ namespace NetworkModelCode.Desktop.ViewModels
             {
                 await Exporter.ExportAsync(DefaultDialogService.FileName, Project);
             }
+        }
+
+        public void ConfigureGraph()
+        {
+            
         }
     }
 }

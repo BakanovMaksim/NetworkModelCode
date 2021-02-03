@@ -1,5 +1,4 @@
-﻿using NetworkModelCode.Core.Domain.Entities;
-using NetworkModelCode.Infrastructure.Business;
+﻿using NetworkModelCode.Infrastructure.Business;
 
 using NUnit.Framework;
 

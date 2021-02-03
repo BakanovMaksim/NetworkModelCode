@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.Tests", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.Desktop", "NetworkModelCode.Desktop\NetworkModelCode.Desktop.csproj", "{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkModelCode.Repository", "NetworkModelCode.Repository\NetworkModelCode.Repository.csproj", "{345890F4-3F03-4CC9-87E1-76544E3FC140}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345890F4-3F03-4CC9-87E1-76544E3FC140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345890F4-3F03-4CC9-87E1-76544E3FC140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345890F4-3F03-4CC9-87E1-76544E3FC140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345890F4-3F03-4CC9-87E1-76544E3FC140}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{701DC4E3-3AC7-4090-9A6F-4E1CF3B31416} = {A009F9F6-007C-463E-A6C8-1F2B02992BE2}
 		{8AB19DC2-C563-4CE2-915C-15B4D3B2E199} = {511EA552-D587-4357-9201-1BD61977FB7A}
 		{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310} = {A009F9F6-007C-463E-A6C8-1F2B02992BE2}
+		{345890F4-3F03-4CC9-87E1-76544E3FC140} = {A009F9F6-007C-463E-A6C8-1F2B02992BE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2706C5D-35DE-4410-942D-0C7F11D46C0F}

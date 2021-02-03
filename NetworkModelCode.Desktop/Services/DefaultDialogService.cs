@@ -18,7 +18,7 @@ namespace NetworkModelCode.Desktop.Services
             FileName = string.Empty;
 
             var openFileDialog = new OpenFileDialog();
-            Configuration(openFileDialog);
+            Configure(openFileDialog);
 
             if((bool)openFileDialog.ShowDialog())
             {
@@ -34,7 +34,7 @@ namespace NetworkModelCode.Desktop.Services
             FileName = string.Empty;
 
             var saveFileDialog = new SaveFileDialog();
-            Configuration(saveFileDialog);
+            Configure(saveFileDialog);
 
             if((bool)saveFileDialog.ShowDialog())
             {
@@ -45,7 +45,7 @@ namespace NetworkModelCode.Desktop.Services
             return false;
         }
 
-        public void Configuration(FileDialog fileDialog)
+        private void Configure(FileDialog fileDialog)
         {
             fileDialog.InitialDirectory = "c:\\";
             fileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
