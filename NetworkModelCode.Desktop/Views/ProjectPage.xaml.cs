@@ -16,9 +16,9 @@ namespace NetworkModelCode.Desktop.Views
             DataContext = ProjectViewModel;
         }
 
-        private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ProjectViewModel.CalculateWorkTimeCharacteristic();
+            await ProjectViewModel.CalculateWorkTimeCharacteristic();
         }
 
         private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

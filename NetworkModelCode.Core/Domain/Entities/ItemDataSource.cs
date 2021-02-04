@@ -1,11 +1,9 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
     public class ItemDataSource : BaseEntity
     {
-        public Guid ProjectId { get; set; }
-
         public string Title { get; set; }
 
         public int CodeI { get; set; }
@@ -13,6 +11,9 @@ namespace NetworkModelCode.Core.Domain.Entities
         public int CodeJ { get; set; }
 
         public int Time { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ProjectId { get; set; }
 
         public override bool Equals(object obj)
         {

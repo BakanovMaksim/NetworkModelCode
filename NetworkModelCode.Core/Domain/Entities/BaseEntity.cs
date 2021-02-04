@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace NetworkModelCode.Core.Domain.Entities
+﻿namespace NetworkModelCode.Core.Domain.Entities
 {
     public abstract class BaseEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }
