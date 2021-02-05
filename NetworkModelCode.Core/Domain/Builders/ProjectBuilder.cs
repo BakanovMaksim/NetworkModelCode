@@ -13,6 +13,12 @@ namespace NetworkModelCode.Core.Domain.Builders
             Project = new();
         }
 
+        public ProjectBuilder SetTitle(string title)
+        {
+            Project.Title = title;
+            return this;
+        }
+
         public ProjectBuilder SetWorkCount(int count)
         {
             Project.WorkCount = count;

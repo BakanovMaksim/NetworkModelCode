@@ -32,6 +32,7 @@ namespace NetworkModelCode.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("Time")
@@ -67,6 +68,7 @@ namespace NetworkModelCode.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("ReserveFreeTime")
@@ -88,6 +90,9 @@ namespace NetworkModelCode.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WorkCount")
                         .HasColumnType("int");

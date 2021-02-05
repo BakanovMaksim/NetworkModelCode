@@ -40,5 +40,10 @@ namespace NetworkModelCode.Desktop.Views
         {
             await ProjectViewModel.ExportWorkComplexAsync();
         }
+
+        private void settingButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ProjectViewModel.ConfigureProject();
+        }
     }
 }
