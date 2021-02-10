@@ -9,8 +9,8 @@ using NetworkModelCode.Infrastructure.Data;
 namespace NetworkModelCode.Infrastructure.Migrations
 {
     [DbContext(typeof(NetworkModelContext))]
-    [Migration("20210205084940_InitialCreateV3")]
-    partial class InitialCreateV3
+    [Migration("20210210075253_InitialCreateV4")]
+    partial class InitialCreateV4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,20 +106,24 @@ namespace NetworkModelCode.Infrastructure.Migrations
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.ItemDataSource", b =>
                 {
-                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", null)
+                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", "Project")
                         .WithMany("ItemsDataSource")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.ItemTimeCharacteristic", b =>
                 {
-                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", null)
+                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", "Project")
                         .WithMany("ItemsTimeCharacteristic")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.Project", b =>

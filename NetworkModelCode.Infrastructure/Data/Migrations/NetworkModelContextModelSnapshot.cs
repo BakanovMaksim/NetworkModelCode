@@ -104,20 +104,24 @@ namespace NetworkModelCode.Infrastructure.Migrations
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.ItemDataSource", b =>
                 {
-                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", null)
+                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", "Project")
                         .WithMany("ItemsDataSource")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.ItemTimeCharacteristic", b =>
                 {
-                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", null)
+                    b.HasOne("NetworkModelCode.Core.Domain.Entities.Project", "Project")
                         .WithMany("ItemsTimeCharacteristic")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("NetworkModelCode.Core.Domain.Entities.Project", b =>

@@ -12,7 +12,7 @@
             <MenuItem x:Name="projectMenuItem" Header="Проект" Click="projectMenuItem_Click"/>
             <MenuItem x:Name="goBackMenuItem" Header="Назад" Click="goBackMenuItem_Click"/>
         </Menu>
-        <Frame x:Name="mainFrame" DockPanel.Dock="Bottom" Source="Views/ProjectsMenuPage.xaml">
+        <Frame x:Name="mainFrame" DockPanel.Dock="Bottom" Source="Views/ProjectsMenuPage.xaml" NavigationUIVisibility="Hidden">
             
         </Frame>
     </DockPanel>

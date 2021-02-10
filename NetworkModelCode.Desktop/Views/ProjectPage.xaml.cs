@@ -1,5 +1,6 @@
 ﻿using NetworkModelCode.Desktop.ViewModels;
 
+using System.Linq;
 using System.ComponentModel;
 using System.Windows.Controls;
 
@@ -16,9 +17,20 @@ namespace NetworkModelCode.Desktop.Views
             DataContext = ProjectViewModel;
         }
 
-        private async void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            await ProjectViewModel.CalculateWorkTimeCharacteristic();
+            ProjectViewModel.CalculateWorkTimeCharacteristic();
+
+            var chart = ProjectViewModel.ConfigureChart();
+
+            var axisX = new LiveCharts.Wpf.AxesCollection();
+            axisX.Add(new LiveCharts.Wpf.Axis() { Labels = chart.XAxisLabels.ToList() });
+
+            var axisY = new LiveCharts.Wpf.AxesCollection();
+            axisY.Add(new LiveCharts.Wpf.Axis() { Labels = chart.YAxisLabels.ToList() });
+
+            ChartGantt.AxisX = axisX;
+            ChartGantt.AxisY = axisY;
         }
 
         private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

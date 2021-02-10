@@ -19,6 +19,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
+        public Project Project { get; set; }
 
         public override bool Equals(object obj)
         {
