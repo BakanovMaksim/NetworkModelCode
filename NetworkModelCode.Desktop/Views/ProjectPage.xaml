@@ -16,6 +16,10 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="toolBarTrayStyle" TargetType="ToolBarTray">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
     </Page.Resources>
     
     <Grid x:Name="projectGrid">
@@ -30,11 +34,17 @@
             <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
 
-        <ToolBarTray Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch">
+        <ToolBarTray Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource toolBarTrayStyle}">
             <ToolBar>
                 <Button x:Name="importButton" Content="Импорт" Click="importButton_Click" />
                 <Button x:Name="exportButton" Content="Экспорт" Click="exportButton_Click" />
                 <Button x:Name="settingButton" Content="Настройка" Click="settingButton_Click"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <ToolBarTray Grid.RowSpan="2" Grid.Column="3" Style="{StaticResource toolBarTrayStyle}">
+            <ToolBar>
+                <Button x:Name="saveButton" Content="Сохранить" Click="saveButton_Click"/>
             </ToolBar>
         </ToolBarTray>
 
@@ -55,13 +65,8 @@
             </DockPanel>
         </Border>
 
-        <lvc:CartesianChart x:Name="ChartGantt" Grid.Row="1" Grid.Column="2" LegendLocation="Top">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Продолжительность" LabelsRotation="20" Labels="{Binding Chart.XAxisLabels}" Position="RightTop"/>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Работа" Labels="{Binding Chart.YAxisLabels}"/>
-            </lvc:CartesianChart.AxisY>
+        <lvc:CartesianChart x:Name="ChartGantt" Grid.Row="1" Grid.Column="2" LegendLocation="Right">
+            
         </lvc:CartesianChart>
     </Grid>
 </Page>

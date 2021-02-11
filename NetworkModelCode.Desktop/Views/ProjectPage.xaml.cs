@@ -1,6 +1,7 @@
-﻿using NetworkModelCode.Desktop.ViewModels;
+﻿using LiveCharts.Wpf;
 
-using System.Linq;
+using NetworkModelCode.Desktop.ViewModels;
+
 using System.ComponentModel;
 using System.Windows.Controls;
 
@@ -19,18 +20,12 @@ namespace NetworkModelCode.Desktop.Views
 
         private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ProjectViewModel.CalculateWorkTimeCharacteristic();
+            ProjectViewModel.CalculateProjectData();
 
-            var chart = ProjectViewModel.ConfigureChart();
-
-            var axisX = new LiveCharts.Wpf.AxesCollection();
-            axisX.Add(new LiveCharts.Wpf.Axis() { Labels = chart.XAxisLabels.ToList() });
-
-            var axisY = new LiveCharts.Wpf.AxesCollection();
-            axisY.Add(new LiveCharts.Wpf.Axis() { Labels = chart.YAxisLabels.ToList() });
-
-            ChartGantt.AxisX = axisX;
-            ChartGantt.AxisY = axisY;
+            var chart = (CartesianChart)ProjectViewModel.ConfigureChart();
+            ChartGantt.AxisX = chart.AxisX;
+            ChartGantt.AxisY = chart.AxisY;
+            ChartGantt.Series = chart.Series;
         }
 
         private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -56,6 +51,11 @@ namespace NetworkModelCode.Desktop.Views
         private void settingButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ProjectViewModel.ConfigureProject();
+        }
+
+        private async void saveButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await ProjectViewModel.SaveProjectDataAsync();
         }
     }
 }

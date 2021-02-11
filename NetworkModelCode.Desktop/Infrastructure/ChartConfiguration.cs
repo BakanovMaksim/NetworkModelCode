@@ -1,39 +1,66 @@
-﻿using NetworkModelCode.Core.Domain.Entities;
-using NetworkModelCode.Desktop.DTO;
-using NetworkModelCode.Desktop.Models;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Definitions.Series;
+using LiveCharts.Wpf;
+using LiveCharts.Wpf.Charts.Base;
 
+using NetworkModelCode.Desktop.DTO;
+
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace NetworkModelCode.Desktop.Infrastructure
 {
     public class ChartConfiguration
     {
-        public static Chart Configure(ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO)
+        public static Chart Configure(
+            ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO,
+            ObservableCollection<ItemTimeCharacteristicDTO> itemsTimeCharacteristicDTO)
         {
-            var xAxisLabels = GetXAxisLabels(itemsDataSourceDTO);
-            var yAxisLabels = GetYAxisLabels(itemsDataSourceDTO);
+            var series = GetSeries(itemsDataSourceDTO, itemsTimeCharacteristicDTO);
+            var seriesCollection = new SeriesCollection();
 
-            return new()
+            seriesCollection.AddRange(series);
+
+            var axisX = new AxesCollection();
+            axisX.Add(new Axis { Title = "Продолжительность", MinValue = 0, Position = AxisPosition.RightTop });
+
+            var labels = itemsDataSourceDTO.Select((p, i) => (++i).ToString());
+
+            var axisY = new AxesCollection();
+            axisY.Add(new Axis { Title = "Работа", Labels = labels.ToList() });
+       
+            return new CartesianChart
             {
-                XAxisLabels = new ObservableCollection<string>(xAxisLabels),
-                YAxisLabels = new ObservableCollection<string>(yAxisLabels)
+                AxisX = axisX,
+                AxisY = axisY,
+                Series = seriesCollection
             };
         }
 
-        private static IEnumerable<string> GetXAxisLabels(ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO)
+        private static IEnumerable<ISeriesView> GetSeries(
+            ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO,
+            ObservableCollection<ItemTimeCharacteristicDTO> itemsTimeCharacteristicDTO)
         {
-            foreach(var item in itemsDataSourceDTO)
-            {
-                yield return item.Time.ToString();
-            }
-        }
+            var fill = Brushes.Transparent;
 
-        private static IEnumerable<string> GetYAxisLabels(ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO)
-        {
-            foreach(var item in itemsDataSourceDTO)
+            for (int k = 0; k < itemsDataSourceDTO.Count; k++)
             {
-                yield return item.Title;
+                var xStart = itemsTimeCharacteristicDTO[k].EarlyStart;
+                var xFinish = itemsTimeCharacteristicDTO[k].EarlyFinish;
+
+                yield return new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>
+                    {
+                        new ObservablePoint(xStart,k),
+                        new ObservablePoint(xFinish,k)
+                    },
+                    Fill = fill,
+                    Title = itemsDataSourceDTO[k].Title
+                };
             }
         }
     }

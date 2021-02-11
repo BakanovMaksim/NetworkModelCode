@@ -1,9 +1,10 @@
-﻿using NetworkModelCode.Core.Application.Calculators;
+﻿using LiveCharts.Wpf.Charts.Base;
+
+using NetworkModelCode.Core.Application.Calculators;
 using NetworkModelCode.Core.Domain.Builders;
 using NetworkModelCode.Core.Domain.Entities;
 using NetworkModelCode.Desktop.DTO;
 using NetworkModelCode.Desktop.Infrastructure;
-using NetworkModelCode.Desktop.Models;
 using NetworkModelCode.Desktop.Services;
 using NetworkModelCode.Desktop.Views;
 using NetworkModelCode.Infrastructure.Business;
@@ -25,7 +26,6 @@ namespace NetworkModelCode.Desktop.ViewModels
         public ObservableCollection<ItemTimeCharacteristicDTO> ItemsTimeCharacteristicDTO { get; set; }
         public Project Project { get; private set; }
         public ProjectDTO ProjectDTO { get; set; }
-        public Chart Chart { get; set; }
 
         public ProjectViewModel()
         {
@@ -38,7 +38,7 @@ namespace NetworkModelCode.Desktop.ViewModels
             ProjectDTO = new();
         }
 
-        public void CalculateWorkTimeCharacteristic()
+        public void CalculateProjectData()
         {
             var itemsDataSource = Mapper.
                 MapCollection<ItemDataSourceDTO, ItemDataSource, ObservableCollection<ItemDataSourceDTO>, ObservableCollection<ItemDataSource>>(ItemsDataSourceDTO);
@@ -58,10 +58,13 @@ namespace NetworkModelCode.Desktop.ViewModels
                 .SetItemsDataSource(itemsDataSource.ToList())
                 .SetItemsTimeCharacteristic(itemsTimeCharacteristic)
                 .Build();
+        }
 
-            //await UnitOfWork.Projects.AddAsync(Project);
-            //await UnitOfWork.ItemsDataSource.AddRangeAsync(Project.ItemsDataSource);
-            //await UnitOfWork.ItemsTimeCharacteristic.AddRangeAsync(Project.ItemsTimeCharacteristic);
+        public async Task SaveProjectDataAsync()
+        {
+            await UnitOfWork.Projects.AddAsync(Project);
+            await UnitOfWork.ItemsDataSource.AddRangeAsync(Project.ItemsDataSource);
+            await UnitOfWork.ItemsTimeCharacteristic.AddRangeAsync(Project.ItemsTimeCharacteristic);
         }
 
         public async Task ImportWorkDataSourceAsync()
@@ -98,7 +101,7 @@ namespace NetworkModelCode.Desktop.ViewModels
 
         public Chart ConfigureChart()
         {
-            return ChartConfiguration.Configure(ItemsDataSourceDTO);
+            return ChartConfiguration.Configure(ItemsDataSourceDTO,ItemsTimeCharacteristicDTO);
         }
     }
 }

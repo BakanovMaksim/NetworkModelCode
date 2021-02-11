@@ -17,7 +17,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public int ReserveFreeTime { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
