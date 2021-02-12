@@ -1,4 +1,6 @@
-﻿using NetworkModelCode.Desktop.ViewModels;
+﻿using LiveCharts.Wpf;
+
+using NetworkModelCode.Desktop.ViewModels;
 
 using System.ComponentModel;
 using System.Windows.Controls;
@@ -18,7 +20,12 @@ namespace NetworkModelCode.Desktop.Views
 
         private void enterButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ProjectViewModel.CalculateWorkTimeCharacteristic();
+            ProjectViewModel.CalculateProjectData();
+
+            var chart = (CartesianChart)ProjectViewModel.ConfigureChart();
+            ChartGantt.AxisX = chart.AxisX;
+            ChartGantt.AxisY = chart.AxisY;
+            ChartGantt.Series = chart.Series;
         }
 
         private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -39,6 +46,16 @@ namespace NetworkModelCode.Desktop.Views
         private async void exportButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             await ProjectViewModel.ExportWorkComplexAsync();
+        }
+
+        private void settingButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ProjectViewModel.ConfigureProject();
+        }
+
+        private async void saveButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await ProjectViewModel.SaveProjectDataAsync();
         }
     }
 }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NetworkModelCode.DesktopWpf"
+        xmlns:local="clr-namespace:NetworkModelCode.Desktop.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterOwner" WindowState="Maximized">
 
@@ -12,7 +12,7 @@
             <MenuItem x:Name="projectMenuItem" Header="Проект" Click="projectMenuItem_Click"/>
             <MenuItem x:Name="goBackMenuItem" Header="Назад" Click="goBackMenuItem_Click"/>
         </Menu>
-        <Frame x:Name="mainFrame" DockPanel.Dock="Bottom">
+        <Frame x:Name="mainFrame" DockPanel.Dock="Bottom" Source="Views/ProjectsMenuPage.xaml" NavigationUIVisibility="Hidden">
             
         </Frame>
     </DockPanel>

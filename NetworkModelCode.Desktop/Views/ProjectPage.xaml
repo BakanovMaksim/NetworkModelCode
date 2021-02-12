@@ -3,10 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:local="clr-namespace:NetworkModelCode.Desktop.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProjectPage">
+      Title="{Binding ProjectDTO.Title}">
 
     <Page.Resources>
         <Style x:Key="dataGridStyle" TargetType="DataGrid">
@@ -14,6 +15,10 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="toolBarTrayStyle" TargetType="ToolBarTray">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
     </Page.Resources>
     
@@ -29,16 +34,23 @@
             <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
 
-        <ToolBarTray Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch">
+        <ToolBarTray Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource toolBarTrayStyle}">
             <ToolBar>
                 <Button x:Name="importButton" Content="Импорт" Click="importButton_Click" />
                 <Button x:Name="exportButton" Content="Экспорт" Click="exportButton_Click" />
+                <Button x:Name="settingButton" Content="Настройка" Click="settingButton_Click"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <ToolBarTray Grid.RowSpan="2" Grid.Column="3" Style="{StaticResource toolBarTrayStyle}">
+            <ToolBar>
+                <Button x:Name="saveButton" Content="Сохранить" Click="saveButton_Click"/>
             </ToolBar>
         </ToolBarTray>
 
         <Border Grid.Row="0" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <DataGrid x:Name="workSourceDataGrid" DockPanel.Dock="Top" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkDataSourceDTOs, Mode=TwoWay}"
+                <DataGrid x:Name="workSourceDataGrid" DockPanel.Dock="Top" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding ItemsDataSourceDTO, Mode=TwoWay}"
                   AutoGeneratingColumn="workSourceDataGrid_AutoGeneratingColumn">
                 </DataGrid>
                 <Button x:Name="enterButton" DockPanel.Dock="Bottom" Content="Расчет" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="enterButton_Click"/>
@@ -47,11 +59,14 @@
 
         <Border Grid.Row="0" Grid.Column="2" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <DataGrid x:Name="workTimeCharacteristicDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding WorkTimeCharacteristicDTOs}"
+                <DataGrid x:Name="workTimeCharacteristicDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding ItemsTimeCharacteristicDTO}"
                   IsReadOnly="True" AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
                 </DataGrid>
-                <TextBlock DockPanel.Dock="Bottom" Text="{Binding Project.CriticalPathLength}"/>
             </DockPanel>
         </Border>
+
+        <lvc:CartesianChart x:Name="ChartGantt" Grid.Row="1" Grid.Column="2" LegendLocation="Right">
+            
+        </lvc:CartesianChart>
     </Grid>
 </Page>

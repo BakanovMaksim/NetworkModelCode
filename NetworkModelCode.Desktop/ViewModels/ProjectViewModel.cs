@@ -1,9 +1,14 @@
-﻿using NetworkModelCode.Core.Application.Calculators;
+﻿using LiveCharts.Wpf.Charts.Base;
+
+using NetworkModelCode.Core.Application.Calculators;
 using NetworkModelCode.Core.Domain.Builders;
 using NetworkModelCode.Core.Domain.Entities;
 using NetworkModelCode.Desktop.DTO;
+using NetworkModelCode.Desktop.Infrastructure;
 using NetworkModelCode.Desktop.Services;
+using NetworkModelCode.Desktop.Views;
 using NetworkModelCode.Infrastructure.Business;
+using NetworkModelCode.Infrastructure.Data;
 
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,40 +19,52 @@ namespace NetworkModelCode.Desktop.ViewModels
     internal class ProjectViewModel
     {
         private IDialogService DefaultDialogService { get; }
+        private UnitOfWork UnitOfWork { get; }
         private ProjectImporter Importer { get; }
         private ProjectExporter Exporter { get; }
-        public ObservableCollection<ItemDataSourceDTO> WorkDataSourceDTOs { get; set; }
-        public ObservableCollection<ItemTimeCharacteristicDTO> WorkTimeCharacteristicDTOs { get; set; }
+        public ObservableCollection<ItemDataSourceDTO> ItemsDataSourceDTO { get; set; }
+        public ObservableCollection<ItemTimeCharacteristicDTO> ItemsTimeCharacteristicDTO { get; set; }
         public Project Project { get; private set; }
+        public ProjectDTO ProjectDTO { get; set; }
 
         public ProjectViewModel()
         {
             DefaultDialogService = new DefaultDialogService();
+            UnitOfWork = new UnitOfWork(new NetworkModelContext());
             Importer = new();
             Exporter = new();
-            WorkDataSourceDTOs = new();
-            WorkTimeCharacteristicDTOs = new();
+            ItemsDataSourceDTO = new();
+            ItemsTimeCharacteristicDTO = new();
+            ProjectDTO = new();
         }
 
-        public void CalculateWorkTimeCharacteristic()
+        public void CalculateProjectData()
         {
-            var workDataSource = Mapper.
-                MapCollection<ItemDataSourceDTO,ItemDataSource, ObservableCollection<ItemDataSourceDTO>,ObservableCollection<ItemDataSource>>(WorkDataSourceDTOs);
+            var itemsDataSource = Mapper.
+                MapCollection<ItemDataSourceDTO, ItemDataSource, ObservableCollection<ItemDataSourceDTO>, ObservableCollection<ItemDataSource>>(ItemsDataSourceDTO);
 
-            var workTimeCharacteristiccalculator = new WorkTimeCharacteristicCalculator();
-            var workTimeCharacteristics = workTimeCharacteristiccalculator.Calculate(workDataSource.ToList()).ToList();
+            var workTimeCharacteristicCalculator = new WorkTimeCharacteristicCalculator();
+            var itemsTimeCharacteristic = workTimeCharacteristicCalculator.Calculate(itemsDataSource.ToList()).ToList();
+
+            foreach (var item in itemsTimeCharacteristic)
+            {
+                var workTimeCharacteristicDto = Mapper.Map<ItemTimeCharacteristic, ItemTimeCharacteristicDTO>(item);
+                ItemsTimeCharacteristicDTO.Add(workTimeCharacteristicDto);
+            }
 
             Project = new ProjectBuilder()
-                .SetWorkCount(workDataSource.Count)
-                .SetItemsDataSource(workDataSource.ToList())
-                .SetItemsTimeCharacteristic(workTimeCharacteristics)
+                .SetTitle(ProjectDTO.Title)
+                .SetWorkCount(ProjectDTO.WorkCount)
+                .SetItemsDataSource(itemsDataSource.ToList())
+                .SetItemsTimeCharacteristic(itemsTimeCharacteristic)
                 .Build();
+        }
 
-            foreach (var itemTimeCharacteristic in workTimeCharacteristics)
-            {
-                var workTimeCharacteristicDto = Mapper.Map<ItemTimeCharacteristic, ItemTimeCharacteristicDTO>(itemTimeCharacteristic);
-                WorkTimeCharacteristicDTOs.Add(workTimeCharacteristicDto);
-            }
+        public async Task SaveProjectDataAsync()
+        {
+            await UnitOfWork.Projects.AddAsync(Project);
+            await UnitOfWork.ItemsDataSource.AddRangeAsync(Project.ItemsDataSource);
+            await UnitOfWork.ItemsTimeCharacteristic.AddRangeAsync(Project.ItemsTimeCharacteristic);
         }
 
         public async Task ImportWorkDataSourceAsync()
@@ -58,10 +75,10 @@ namespace NetworkModelCode.Desktop.ViewModels
             {
                 var project = await Importer.ImportAsync(DefaultDialogService.FileName);
 
-                foreach (var itemDataSource in project.ItemsDataSource)
+                foreach (var item in project.ItemsDataSource)
                 {
-                    var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(itemDataSource);
-                    WorkDataSourceDTOs.Add(workDataSourceDTO);
+                    var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(item);
+                    ItemsDataSourceDTO.Add(workDataSourceDTO);
                 }
             }
         }
@@ -70,10 +87,21 @@ namespace NetworkModelCode.Desktop.ViewModels
         {
             var saveFileDialog = DefaultDialogService.SaveFile();
 
-            if(saveFileDialog)
+            if (saveFileDialog)
             {
                 await Exporter.ExportAsync(DefaultDialogService.FileName, Project);
             }
+        }
+
+        public void ConfigureProject()
+        {
+            var projectSettingWindow = new ProjectSettingWindow(ProjectDTO);
+            projectSettingWindow.ShowDialog();
+        }
+
+        public Chart ConfigureChart()
+        {
+            return ChartConfiguration.Configure(ItemsDataSourceDTO,ItemsTimeCharacteristicDTO);
         }
     }
 }

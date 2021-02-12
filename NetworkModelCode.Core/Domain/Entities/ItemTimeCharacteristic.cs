@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
     public class ItemTimeCharacteristic : BaseEntity
     {
-        public Guid ProjectId { get; set; }
 
         public int EarlyStart { get; set; }
 
@@ -17,6 +16,10 @@ namespace NetworkModelCode.Core.Domain.Entities
         public int ReserveFullTime { get; set; }
 
         public int ReserveFreeTime { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ProjectId { get; set; }
+        public Project Project { get; set; }
 
         public override bool Equals(object obj)
         {

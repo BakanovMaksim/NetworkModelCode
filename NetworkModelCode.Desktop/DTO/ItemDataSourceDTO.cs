@@ -4,7 +4,7 @@ namespace NetworkModelCode.Desktop.DTO
 {
     public class ItemDataSourceDTO
     {
-        [DisplayName("Название")]
+        [DisplayName("Наименование")]
         public  string Title { get; set; }
 
         [DisplayName("i")]

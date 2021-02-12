@@ -4,6 +4,8 @@ namespace NetworkModelCode.Core.Domain.Entities
 {
     public class Project : BaseEntity
     {
+        public string Title { get; set; }
+
         public int WorkCount { get; set; }
 
         public IReadOnlyList<ItemDataSource> ItemsDataSource { get; set; }
