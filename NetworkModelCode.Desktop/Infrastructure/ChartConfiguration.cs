@@ -16,8 +16,8 @@ namespace NetworkModelCode.Desktop.Infrastructure
     public class ChartConfiguration
     {
         public static Chart Configure(
-            ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO,
-            ObservableCollection<ItemTimeCharacteristicDTO> itemsTimeCharacteristicDTO)
+            ObservableCollection<TechnologicalConditionDTO> itemsDataSourceDTO,
+            ObservableCollection<TimeCharacteristicDTO> itemsTimeCharacteristicDTO)
         {
             var series = GetSeries(itemsDataSourceDTO, itemsTimeCharacteristicDTO);
             var seriesCollection = new SeriesCollection();
@@ -41,8 +41,8 @@ namespace NetworkModelCode.Desktop.Infrastructure
         }
 
         private static IEnumerable<ISeriesView> GetSeries(
-            ObservableCollection<ItemDataSourceDTO> itemsDataSourceDTO,
-            ObservableCollection<ItemTimeCharacteristicDTO> itemsTimeCharacteristicDTO)
+            ObservableCollection<TechnologicalConditionDTO> itemsDataSourceDTO,
+            ObservableCollection<TimeCharacteristicDTO> itemsTimeCharacteristicDTO)
         {
             var fill = Brushes.Transparent;
 

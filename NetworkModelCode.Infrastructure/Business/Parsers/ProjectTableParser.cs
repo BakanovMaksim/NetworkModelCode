@@ -16,12 +16,12 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
             var stringBuilder = new StringBuilder();
 
-            foreach(var item in project.ItemsDataSource)
+            foreach(var item in project.TechnologicalConditions)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }
 
-            foreach(var item in project.ItemsTimeCharacteristic)
+            foreach(var item in project.TimeCharacteristics)
             {
                 stringBuilder.AppendLine(item.ToStringCustom());
             }

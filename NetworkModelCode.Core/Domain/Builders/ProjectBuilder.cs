@@ -25,15 +25,15 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public ProjectBuilder SetItemsDataSource(IReadOnlyList<ItemDataSource> itemsDataSource)
+        public ProjectBuilder SetTechnologicalConditions(IReadOnlyList<TechnologicalCondition> technologicalConditions)
         {
-            Project.ItemsDataSource = itemsDataSource;
+            Project.TechnologicalConditions = technologicalConditions;
             return this;
         }
 
-        public ProjectBuilder SetItemsTimeCharacteristic(IReadOnlyList<ItemTimeCharacteristic> itemsTimeCharacteristic)
+        public ProjectBuilder SetTimeCharacteristics(IReadOnlyList<TimeCharacteristic> timeCharacteristics)
         {
-            Project.ItemsTimeCharacteristic = itemsTimeCharacteristic;
+            Project.TimeCharacteristics = timeCharacteristics;
             return this;
         }
 

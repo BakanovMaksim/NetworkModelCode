@@ -55,7 +55,7 @@ namespace NetworkModelCode.Desktop.Views
 
         private async void saveButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            await ProjectViewModel.SaveProjectDataAsync();
+            await ProjectViewModel.SaveProjecAsync();
         }
     }
 }

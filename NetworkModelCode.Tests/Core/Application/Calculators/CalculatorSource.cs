@@ -34,18 +34,18 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
             yield return new TestCaseData(27);
         }
 
-        internal static IReadOnlyList<ItemDataSource> GetWorkDataSource()
+        internal static IReadOnlyList<TechnologicalCondition> GetWorkDataSource()
         {
-            return new List<ItemDataSource>()
+            return new List<TechnologicalCondition>()
             {
-                    new ItemDataSource { CodeI = 1, CodeJ = 2, Time = 5 },
-                    new ItemDataSource { CodeI = 1, CodeJ = 3, Time = 2 },
-                    new ItemDataSource { CodeI = 2, CodeJ = 3, Time = 0 },
-                    new ItemDataSource { CodeI = 2, CodeJ = 4, Time = 3 },
-                    new ItemDataSource { CodeI = 3, CodeJ = 4, Time = 7 },
-                    new ItemDataSource { CodeI = 3, CodeJ = 5, Time = 6 },
-                    new ItemDataSource { CodeI = 4, CodeJ = 6, Time = 4 },
-                    new ItemDataSource { CodeI = 5, CodeJ = 6, Time = 5 }
+                    new TechnologicalCondition { CodeI = 1, CodeJ = 2, Time = 5 },
+                    new TechnologicalCondition { CodeI = 1, CodeJ = 3, Time = 2 },
+                    new TechnologicalCondition { CodeI = 2, CodeJ = 3, Time = 0 },
+                    new TechnologicalCondition { CodeI = 2, CodeJ = 4, Time = 3 },
+                    new TechnologicalCondition { CodeI = 3, CodeJ = 4, Time = 7 },
+                    new TechnologicalCondition { CodeI = 3, CodeJ = 5, Time = 6 },
+                    new TechnologicalCondition { CodeI = 4, CodeJ = 6, Time = 4 },
+                    new TechnologicalCondition { CodeI = 5, CodeJ = 6, Time = 5 }
             };
         }
     }

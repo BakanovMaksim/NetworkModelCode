@@ -22,8 +22,8 @@ namespace NetworkModelCode.Desktop.ViewModels
         private UnitOfWork UnitOfWork { get; }
         private ProjectImporter Importer { get; }
         private ProjectExporter Exporter { get; }
-        public ObservableCollection<ItemDataSourceDTO> ItemsDataSourceDTO { get; set; }
-        public ObservableCollection<ItemTimeCharacteristicDTO> ItemsTimeCharacteristicDTO { get; set; }
+        public ObservableCollection<TechnologicalConditionDTO> TechnologicalConditionDTOs { get; set; }
+        public ObservableCollection<TimeCharacteristicDTO> TimeCharacteristicDTOs { get; set; }
         public Project Project { get; private set; }
         public ProjectDTO ProjectDTO { get; set; }
 
@@ -33,38 +33,43 @@ namespace NetworkModelCode.Desktop.ViewModels
             UnitOfWork = new UnitOfWork(new NetworkModelContext());
             Importer = new();
             Exporter = new();
-            ItemsDataSourceDTO = new();
-            ItemsTimeCharacteristicDTO = new();
+            TechnologicalConditionDTOs = new();
+            TimeCharacteristicDTOs = new();
             ProjectDTO = new();
         }
 
         public void CalculateProjectData()
         {
-            var itemsDataSource = Mapper.
-                MapCollection<ItemDataSourceDTO, ItemDataSource, ObservableCollection<ItemDataSourceDTO>, ObservableCollection<ItemDataSource>>(ItemsDataSourceDTO);
+            var technologicalConditions = Mapper.
+                MapCollection<
+                    TechnologicalConditionDTO,
+                    TechnologicalCondition,
+                    ObservableCollection<TechnologicalConditionDTO>,
+                    ObservableCollection<TechnologicalCondition>>
+                    (TechnologicalConditionDTOs);
 
-            var workTimeCharacteristicCalculator = new WorkTimeCharacteristicCalculator();
-            var itemsTimeCharacteristic = workTimeCharacteristicCalculator.Calculate(itemsDataSource.ToList()).ToList();
+            var timeCharacteristicCalculator = new TimeCharacteristicCalculator();
+            var timeCharacteristics = timeCharacteristicCalculator.Calculate(technologicalConditions.ToList()).ToList();
 
-            foreach (var item in itemsTimeCharacteristic)
+            foreach (var item in timeCharacteristics)
             {
-                var workTimeCharacteristicDto = Mapper.Map<ItemTimeCharacteristic, ItemTimeCharacteristicDTO>(item);
-                ItemsTimeCharacteristicDTO.Add(workTimeCharacteristicDto);
+                var workTimeCharacteristicDto = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
+                TimeCharacteristicDTOs.Add(workTimeCharacteristicDto);
             }
 
             Project = new ProjectBuilder()
                 .SetTitle(ProjectDTO.Title)
                 .SetWorkCount(ProjectDTO.WorkCount)
-                .SetItemsDataSource(itemsDataSource.ToList())
-                .SetItemsTimeCharacteristic(itemsTimeCharacteristic)
+                .SetTechnologicalConditions(technologicalConditions.ToList())
+                .SetTimeCharacteristics(timeCharacteristics)
                 .Build();
         }
 
-        public async Task SaveProjectDataAsync()
+        public async Task SaveProjecAsync()
         {
             await UnitOfWork.Projects.AddAsync(Project);
-            await UnitOfWork.ItemsDataSource.AddRangeAsync(Project.ItemsDataSource);
-            await UnitOfWork.ItemsTimeCharacteristic.AddRangeAsync(Project.ItemsTimeCharacteristic);
+            await UnitOfWork.TechnologicalConditions.AddRangeAsync(Project.TechnologicalConditions);
+            await UnitOfWork.TimeCharacteristics.AddRangeAsync(Project.TimeCharacteristics);
         }
 
         public async Task ImportWorkDataSourceAsync()
@@ -75,10 +80,10 @@ namespace NetworkModelCode.Desktop.ViewModels
             {
                 var project = await Importer.ImportAsync(DefaultDialogService.FileName);
 
-                foreach (var item in project.ItemsDataSource)
+                foreach (var item in project.TechnologicalConditions)
                 {
-                    var workDataSourceDTO = Mapper.Map<ItemDataSource, ItemDataSourceDTO>(item);
-                    ItemsDataSourceDTO.Add(workDataSourceDTO);
+                    var workDataSourceDTO = Mapper.Map<TechnologicalCondition, TechnologicalConditionDTO>(item);
+                    TechnologicalConditionDTOs.Add(workDataSourceDTO);
                 }
             }
         }
@@ -101,7 +106,7 @@ namespace NetworkModelCode.Desktop.ViewModels
 
         public Chart ConfigureChart()
         {
-            return ChartConfiguration.Configure(ItemsDataSourceDTO,ItemsTimeCharacteristicDTO);
+            return ChartConfiguration.Configure(TechnologicalConditionDTOs, TimeCharacteristicDTOs);
         }
     }
 }

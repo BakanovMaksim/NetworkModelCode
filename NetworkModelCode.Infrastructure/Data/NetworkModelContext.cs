@@ -8,9 +8,9 @@ namespace NetworkModelCode.Infrastructure.Data
     {
         public DbSet<Project> Projects { get; set; }
 
-        public DbSet<ItemDataSource> ItemsDataSource { get; set; }
+        public DbSet<TechnologicalCondition> TechnologicalConditions { get; set; }
 
-        public DbSet<ItemTimeCharacteristic> ItemsTimeCharacteristic { get; set; }
+        public DbSet<TimeCharacteristic> TimeCharacteristics { get; set; }
 
         public NetworkModelContext()
         {

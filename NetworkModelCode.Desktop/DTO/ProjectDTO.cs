@@ -6,8 +6,6 @@ namespace NetworkModelCode.Desktop.DTO
     public class ProjectDTO : INotifyPropertyChanged
     {
         private string title = "Новый проект";
-        private int workCount;
-
         public string Title
         {
             get
@@ -21,6 +19,7 @@ namespace NetworkModelCode.Desktop.DTO
             }
         }
 
+        private int workCount;
         public int WorkCount
         {
             get

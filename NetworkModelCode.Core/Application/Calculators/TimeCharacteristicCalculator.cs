@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace NetworkModelCode.Core.Application.Calculators
 {
-    public class WorkTimeCharacteristicCalculator
+    public class TimeCharacteristicCalculator
     {
-        private IReadOnlyList<ItemDataSource> ItemsDataSource { get; set; }
+        private IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
 
-        public IEnumerable<ItemTimeCharacteristic> Calculate(IReadOnlyList<ItemDataSource> itemsDataSource)
+        public IEnumerable<TimeCharacteristic> Calculate(IReadOnlyList<TechnologicalCondition> technologicalConditions)
         {
-            ItemsDataSource = itemsDataSource;
+            TechnologicalConditions = technologicalConditions;
 
             var earlys = CalculateEarlyStartAndFinish();
             var earlyStarts = earlys.Item1.ToList();
@@ -22,10 +22,10 @@ namespace NetworkModelCode.Core.Application.Calculators
             var reserveFullTimes = CalculateReserveFullTimes(lateFinishes, earlyFinishes).ToList();
             var reserveFreeTimes = CalculateReserveFreeTimes(lateStarts, earlyStarts).ToList();
 
-            for (int k = 0;k < ItemsDataSource.Count; k++)
+            for (int k = 0;k < TechnologicalConditions.Count; k++)
             {
                 yield return 
-                    new ItemTimeCharacteristicBuilder()
+                    new TimeCharacteristicBuilder()
                     .SetEarly(earlyStarts[k], earlyFinishes[k])
                     .SetLate(lateStarts[k], lateFinishes[k])
                     .SetReserve(reserveFullTimes[k], reserveFreeTimes[k])
@@ -38,26 +38,26 @@ namespace NetworkModelCode.Core.Application.Calculators
             var earlyStarts = new List<int>();
             var earlyFinishes = new List<int>();
 
-            for (int k = 0; k < ItemsDataSource.Count; k++)
+            for (int k = 0; k < TechnologicalConditions.Count; k++)
             {
-                if (ItemsDataSource[k].CodeI == 1)
+                if (TechnologicalConditions[k].CodeI == 1)
                 {
                     earlyStarts.Add(0);
-                    earlyFinishes.Add(ItemsDataSource[k].Time);
+                    earlyFinishes.Add(TechnologicalConditions[k].Time);
                     continue;
                 }
 
                 var counts = new List<int>();
-                for (int j = 0; j < ItemsDataSource.Count; j++)
+                for (int j = 0; j < TechnologicalConditions.Count; j++)
                 {
-                    if (ItemsDataSource[k].CodeI == ItemsDataSource[j].CodeJ)
+                    if (TechnologicalConditions[k].CodeI == TechnologicalConditions[j].CodeJ)
                     {
                         counts.Add(earlyFinishes[j]);
                     }
                 }
 
                 var earlyStart = counts.Max();
-                var earlyFinish = earlyStart + ItemsDataSource[k].Time;
+                var earlyFinish = earlyStart + TechnologicalConditions[k].Time;
 
                 earlyStarts.Add(earlyStart);
                 earlyFinishes.Add(earlyFinish);
@@ -68,14 +68,14 @@ namespace NetworkModelCode.Core.Application.Calculators
 
         private IEnumerable<int> CalculateLateFinishes(IReadOnlyList<int> earlyFinishes)
         {
-            var keys = ItemsDataSource.GroupBy(p => p.CodeJ);           
+            var keys = TechnologicalConditions.GroupBy(p => p.CodeJ);           
 
             foreach (var key in keys)
             {
                 var earlys = new List<int>();
-                for (int k = 0; k < ItemsDataSource.Count; k++)
+                for (int k = 0; k < TechnologicalConditions.Count; k++)
                 {
-                    if (ItemsDataSource[k].CodeJ == key.Key)
+                    if (TechnologicalConditions[k].CodeJ == key.Key)
                     {
                         earlys.Add(earlyFinishes[k]);
                     }
@@ -88,15 +88,15 @@ namespace NetworkModelCode.Core.Application.Calculators
 
         private IEnumerable<int> CalculateLateStarts(IReadOnlyList<int> lateFinishes)
         {
-            for (int k = 0; k < ItemsDataSource.Count; k++)
+            for (int k = 0; k < TechnologicalConditions.Count; k++)
             {
-                yield return lateFinishes[k] - ItemsDataSource[k].Time;
+                yield return lateFinishes[k] - TechnologicalConditions[k].Time;
             }
         }
 
         private IEnumerable<int> CalculateReserveFullTimes(IReadOnlyList<int> lateFinishes, IReadOnlyList<int> earlyFinishes)
         {
-            for (int k = 0; k < ItemsDataSource.Count; k++)
+            for (int k = 0; k < TechnologicalConditions.Count; k++)
             {
                 yield return lateFinishes[k] - earlyFinishes[k];
             }
@@ -104,7 +104,7 @@ namespace NetworkModelCode.Core.Application.Calculators
         
         private IEnumerable<int> CalculateReserveFreeTimes(IReadOnlyList<int> lateStarts, IReadOnlyList<int> earlyStarts)
         {
-            for(int k = 0;k< ItemsDataSource.Count; k++)
+            for(int k = 0;k< TechnologicalConditions.Count; k++)
             {
                 yield return lateStarts[k] - earlyStarts[k];
             }     
