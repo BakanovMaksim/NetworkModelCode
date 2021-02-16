@@ -11,41 +11,54 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         internal static IEnumerable<TestCaseData> GetEarlys()
         {
             yield return new TestCaseData(
-                new List<int> { 0, 0, 5, 5, 5, 5, 12, 11 },
-                new List<int> { 5, 2, 5, 8, 12, 11, 16, 16 });
+                new List<int> { 0, 0, 0, 7, 7, 10, 10, 12, 3, 23, 17 },
+                new List<int> { 10, 4, 3, 10, 17, 12, 23, 17, 6, 32, 23 });
         }
 
         internal static IEnumerable<TestCaseData> GetLates()
         {
             yield return new TestCaseData(
-                new List<int> { 0, 3, 5, 9, 5, 5, 12, 11 },
-                new List<int> { 5, 5, 5, 12, 12, 11, 16, 16 });
+                new List<int> { 0, 20, 23, 10, 25, 22, 13, 24, 26, 26, 29 },
+                new List<int> { 10, 24, 26, 13, 35, 24, 26, 29, 29, 35, 35 });
         }
 
         internal static IEnumerable<TestCaseData> GetReserves()
         {
             yield return new TestCaseData(
-                new List<int> { 0, 3, 0, 4, 0, 0, 0, 0 },
-                new List<int> { 0, 3, 0, 4, 0, 0, 0, 0 });
+                new List<int> { 0, 20, 23, 3, 18, 12, 3, 12, 23, 3, 12 },
+                new List<int> { 0, 20, 23, 3, 18, 12, 3, 12, 23, 3, 12 });
         }
 
-        internal static IEnumerable<TestCaseData> GetCriticalPathLength()
+        internal static IReadOnlyList<TechnologicalCondition> GetTechnologicalConditions()
         {
-            yield return new TestCaseData(27);
-        }
-
-        internal static IReadOnlyList<TechnologicalCondition> GetWorkDataSource()
-        {
-            return new List<TechnologicalCondition>()
+            return new List<TechnologicalCondition>
             {
-                    new TechnologicalCondition { CodeI = 1, CodeJ = 2, Time = 5 },
-                    new TechnologicalCondition { CodeI = 1, CodeJ = 3, Time = 2 },
-                    new TechnologicalCondition { CodeI = 2, CodeJ = 3, Time = 0 },
-                    new TechnologicalCondition { CodeI = 2, CodeJ = 4, Time = 3 },
-                    new TechnologicalCondition { CodeI = 3, CodeJ = 4, Time = 7 },
-                    new TechnologicalCondition { CodeI = 3, CodeJ = 5, Time = 6 },
-                    new TechnologicalCondition { CodeI = 4, CodeJ = 6, Time = 4 },
-                    new TechnologicalCondition { CodeI = 5, CodeJ = 6, Time = 5 }
+                new TechnologicalCondition { Title = "A", CodeI = 1, CodeJ = 2, TimeMin =5, TimeMax = 10,Time = 10 },
+                new TechnologicalCondition { Title = "B", CodeI = 1, CodeJ = 4, TimeMin = 2, TimeMax = 7,Time = 4 },
+                new TechnologicalCondition { Title = "C", CodeI = 1, CodeJ = 5, TimeMin = 1, TimeMax = 6,Time = 3 },
+                new TechnologicalCondition { Title = "D", CodeI = 2, CodeJ = 3, TimeMin = 1,TimeMax=4,Time = 3 },
+                new TechnologicalCondition { Title = "F", CodeI = 2, CodeJ = 8, TimeMin = 8, TimeMax = 13,Time = 10},
+                new TechnologicalCondition { Title = "E", CodeI = 3, CodeJ = 4, TimeMin = 1, TimeMax = 4,Time = 2 },
+                new TechnologicalCondition { Title = "G", CodeI = 3, CodeJ = 6, TimeMin = 9, TimeMax = 19,Time = 13 },
+                new TechnologicalCondition { Title = "H", CodeI = 4, CodeJ = 7, TimeMin = 4, TimeMax = 6,Time = 5 },
+                new TechnologicalCondition{ Title = "M", CodeI = 5, CodeJ=7, TimeMin = 2, TimeMax = 7,Time = 3},
+                new TechnologicalCondition{Title = "N", CodeI = 6, CodeJ = 8,TimeMin = 7,TimeMax=12,Time = 9},
+                new TechnologicalCondition{Title = "K",CodeI = 7, CodeJ = 8, TimeMin=1,TimeMax = 3,Time = 6}
+            };
+        }
+
+        internal static IReadOnlyList<NetworkEvent> GetNetworkEvents()
+        {
+            return new List<NetworkEvent>
+            {
+                new NetworkEvent{EarlyCompletionDate=0,LateCompletionDate=0,TimeReserveCompletionDate=0},
+                new NetworkEvent{EarlyCompletionDate=10,LateCompletionDate=10,TimeReserveCompletionDate=0},
+                new NetworkEvent{EarlyCompletionDate=13,LateCompletionDate=13,TimeReserveCompletionDate=0},
+                new NetworkEvent{EarlyCompletionDate=15,LateCompletionDate=24,TimeReserveCompletionDate=9},
+                new NetworkEvent{EarlyCompletionDate=3,LateCompletionDate=26,TimeReserveCompletionDate=23},
+                new NetworkEvent{EarlyCompletionDate=26,LateCompletionDate=26,TimeReserveCompletionDate=0},
+                new NetworkEvent{EarlyCompletionDate=20,LateCompletionDate=29,TimeReserveCompletionDate=9},
+                new NetworkEvent{EarlyCompletionDate=35,LateCompletionDate=35,TimeReserveCompletionDate=0}
             };
         }
     }

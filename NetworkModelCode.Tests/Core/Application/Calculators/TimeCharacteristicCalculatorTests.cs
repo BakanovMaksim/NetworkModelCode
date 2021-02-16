@@ -19,7 +19,7 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         {
             TimeCharacteristicCalculator = new();
 
-            TimeCharacteristics = TimeCharacteristicCalculator.Calculate(CalculatorSource.GetWorkDataSource()).ToList();
+            TimeCharacteristics = TimeCharacteristicCalculator.Calculate(CalculatorSource.GetTechnologicalConditions(), CalculatorSource.GetNetworkEvents()).ToList();
         }
 
         [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetEarlys))]

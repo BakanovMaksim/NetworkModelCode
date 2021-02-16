@@ -10,7 +10,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
 
-        public IReadOnlyList<Event> Events { get; set; }
+        public IReadOnlyList<NetworkEvent> Events { get; set; }
 
         public IReadOnlyList<TimeCharacteristic> TimeCharacteristics { get; set; }
 

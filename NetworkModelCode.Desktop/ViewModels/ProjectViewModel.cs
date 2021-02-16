@@ -46,10 +46,12 @@ namespace NetworkModelCode.Desktop.ViewModels
                     TechnologicalCondition,
                     ObservableCollection<TechnologicalConditionDTO>,
                     ObservableCollection<TechnologicalCondition>>
-                    (TechnologicalConditionDTOs);
+                    (TechnologicalConditionDTOs).ToList();
 
+            var networkEventCalculator = new NetworkEventCalculator();
+            var networkEvents = networkEventCalculator.Calculate(technologicalConditions).ToList();
             var timeCharacteristicCalculator = new TimeCharacteristicCalculator();
-            var timeCharacteristics = timeCharacteristicCalculator.Calculate(technologicalConditions.ToList()).ToList();
+            var timeCharacteristics = timeCharacteristicCalculator.Calculate(technologicalConditions, networkEvents).ToList();
 
             foreach (var item in timeCharacteristics)
             {
@@ -60,7 +62,7 @@ namespace NetworkModelCode.Desktop.ViewModels
             Project = new ProjectBuilder()
                 .SetTitle(ProjectDTO.Title)
                 .SetWorkCount(ProjectDTO.WorkCount)
-                .SetTechnologicalConditions(technologicalConditions.ToList())
+                .SetTechnologicalConditions(technologicalConditions)
                 .SetTimeCharacteristics(timeCharacteristics)
                 .Build();
         }

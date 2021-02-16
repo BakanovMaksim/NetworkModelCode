@@ -9,16 +9,17 @@ namespace NetworkModelCode.Core.Application.Calculators
     public class TimeCharacteristicCalculator
     {
         private IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
+        private IReadOnlyList<NetworkEvent> NetworkEvents { get; set; }
 
-        public IEnumerable<TimeCharacteristic> Calculate(IReadOnlyList<TechnologicalCondition> technologicalConditions)
+        public IEnumerable<TimeCharacteristic> Calculate(IReadOnlyList<TechnologicalCondition> technologicalConditions, IReadOnlyList<NetworkEvent> events)
         {
             TechnologicalConditions = technologicalConditions;
+            NetworkEvents = events;
 
-            var earlys = CalculateEarlyStartAndFinish();
-            var earlyStarts = earlys.Item1.ToList();
-            var earlyFinishes = earlys.Item2.ToList();
-            var lateFinishes = CalculateLateFinishes(earlyFinishes).ToList();
-            var lateStarts = CalculateLateStarts(lateFinishes).ToList();
+            var earlyStarts = CalculateEarlyStarts().ToList();
+            var earlyFinishes = CalculateEarlyFinishes().ToList();
+            var lateStarts = CalculateLateStarts().ToList();
+            var lateFinishes = CalculateLateFinishes().ToList();
             var reserveFullTimes = CalculateReserveFullTimes(lateFinishes, earlyFinishes).ToList();
             var reserveFreeTimes = CalculateReserveFreeTimes(lateStarts, earlyStarts).ToList();
 
@@ -33,64 +34,43 @@ namespace NetworkModelCode.Core.Application.Calculators
             }
         }
 
-        private (IEnumerable<int>, IEnumerable<int>) CalculateEarlyStartAndFinish()
+        private IEnumerable<int> CalculateEarlyStarts()
         {
-            var earlyStarts = new List<int>();
-            var earlyFinishes = new List<int>();
-
-            for (int k = 0; k < TechnologicalConditions.Count; k++)
+            foreach(var technologicalCondition in TechnologicalConditions)
             {
-                if (TechnologicalConditions[k].CodeI == 1)
-                {
-                    earlyStarts.Add(0);
-                    earlyFinishes.Add(TechnologicalConditions[k].Time);
-                    continue;
-                }
+                var networkEvent = NetworkEvents.ElementAtOrDefault(technologicalCondition.CodeI - 1);
 
-                var counts = new List<int>();
-                for (int j = 0; j < TechnologicalConditions.Count; j++)
-                {
-                    if (TechnologicalConditions[k].CodeI == TechnologicalConditions[j].CodeJ)
-                    {
-                        counts.Add(earlyFinishes[j]);
-                    }
-                }
-
-                var earlyStart = counts.Max();
-                var earlyFinish = earlyStart + TechnologicalConditions[k].Time;
-
-                earlyStarts.Add(earlyStart);
-                earlyFinishes.Add(earlyFinish);
-            }
-
-            return (earlyStarts, earlyFinishes);
-        }
-
-        private IEnumerable<int> CalculateLateFinishes(IReadOnlyList<int> earlyFinishes)
-        {
-            var keys = TechnologicalConditions.GroupBy(p => p.CodeJ);           
-
-            foreach (var key in keys)
-            {
-                var earlys = new List<int>();
-                for (int k = 0; k < TechnologicalConditions.Count; k++)
-                {
-                    if (TechnologicalConditions[k].CodeJ == key.Key)
-                    {
-                        earlys.Add(earlyFinishes[k]);
-                    }
-                }
-
-                for (int k = 0; k < earlys.Count; k++)
-                    yield return earlys.Max();
+                yield return networkEvent.EarlyCompletionDate;
             }
         }
 
-        private IEnumerable<int> CalculateLateStarts(IReadOnlyList<int> lateFinishes)
+        private IEnumerable<int> CalculateEarlyFinishes()
         {
-            for (int k = 0; k < TechnologicalConditions.Count; k++)
+            foreach(var technologicalCondition in TechnologicalConditions)
             {
-                yield return lateFinishes[k] - TechnologicalConditions[k].Time;
+                var networkEvent = NetworkEvents.ElementAtOrDefault(technologicalCondition.CodeI - 1);
+
+                yield return networkEvent.EarlyCompletionDate + technologicalCondition.Time;
+            }
+        }
+
+        private IEnumerable<int> CalculateLateStarts()
+        {
+            foreach(var technologicalCondition in TechnologicalConditions)
+            {
+                var networkEvent = NetworkEvents.ElementAtOrDefault(technologicalCondition.CodeJ - 1);
+
+                yield return networkEvent.LateCompletionDate - technologicalCondition.Time;
+            }
+        }
+
+        private IEnumerable<int> CalculateLateFinishes()
+        {
+            foreach (var technologicalCondition in TechnologicalConditions)
+            {
+                var networkEvent = NetworkEvents.ElementAtOrDefault(technologicalCondition.CodeJ - 1);
+
+                yield return networkEvent.LateCompletionDate;
             }
         }
 
