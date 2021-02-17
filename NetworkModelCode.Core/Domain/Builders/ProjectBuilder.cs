@@ -31,6 +31,18 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
+        public ProjectBuilder SetResources(IReadOnlyList<Resource> resources)
+        {
+            Project.Resources = resources;
+            return this;
+        }
+
+        public ProjectBuilder SetNetworkEvents(IReadOnlyList<NetworkEvent> events)
+        {
+            Project.NetworkEvents = events;
+            return this;
+        }
+
         public ProjectBuilder SetTimeCharacteristics(IReadOnlyList<TimeCharacteristic> timeCharacteristics)
         {
             Project.TimeCharacteristics = timeCharacteristics;

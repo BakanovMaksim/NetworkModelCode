@@ -24,6 +24,7 @@ namespace NetworkModelCode.Desktop.ViewModels
         private ProjectExporter Exporter { get; }
         public ObservableCollection<TechnologicalConditionDTO> TechnologicalConditionDTOs { get; set; }
         public ObservableCollection<TimeCharacteristicDTO> TimeCharacteristicDTOs { get; set; }
+        public ObservableCollection<ResourceDTO> ResourceDTOs { get; set; }
         public Project Project { get; private set; }
         public ProjectDTO ProjectDTO { get; set; }
 
@@ -35,18 +36,27 @@ namespace NetworkModelCode.Desktop.ViewModels
             Exporter = new();
             TechnologicalConditionDTOs = new();
             TimeCharacteristicDTOs = new();
+            ResourceDTOs = new();
             ProjectDTO = new();
         }
 
         public void CalculateProjectData()
         {
-            var technologicalConditions = Mapper.
-                MapCollection<
+            var technologicalConditions = Mapper
+                .MapCollection<
                     TechnologicalConditionDTO,
                     TechnologicalCondition,
                     ObservableCollection<TechnologicalConditionDTO>,
                     ObservableCollection<TechnologicalCondition>>
                     (TechnologicalConditionDTOs).ToList();
+
+            var resources = Mapper
+                .MapCollection<
+                ResourceDTO,
+                Resource,
+                ObservableCollection<ResourceDTO>,
+                ObservableCollection<Resource>>
+                (ResourceDTOs).ToList();
 
             var networkEventCalculator = new NetworkEventCalculator();
             var networkEvents = networkEventCalculator.Calculate(technologicalConditions).ToList();
@@ -55,14 +65,16 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             foreach (var item in timeCharacteristics)
             {
-                var workTimeCharacteristicDto = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
-                TimeCharacteristicDTOs.Add(workTimeCharacteristicDto);
+                var timeCharacteristicDto = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
+                TimeCharacteristicDTOs.Add(timeCharacteristicDto);
             }
 
             Project = new ProjectBuilder()
                 .SetTitle(ProjectDTO.Title)
                 .SetWorkCount(ProjectDTO.WorkCount)
                 .SetTechnologicalConditions(technologicalConditions)
+                .SetResources(resources)
+                .SetNetworkEvents(networkEvents)
                 .SetTimeCharacteristics(timeCharacteristics)
                 .Build();
         }
@@ -106,7 +118,7 @@ namespace NetworkModelCode.Desktop.ViewModels
             projectSettingWindow.ShowDialog();
         }
 
-        public Chart ConfigureChart()
+        public Chart GetChart()
         {
             return ChartConfiguration.Configure(TechnologicalConditionDTOs, TimeCharacteristicDTOs);
         }

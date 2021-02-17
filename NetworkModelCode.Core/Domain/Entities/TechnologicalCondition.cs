@@ -8,13 +8,19 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public int CodeI { get; set; }
        
-        public int CodeJ { get; set; }
+        public int CodeJ { get; set; }     
 
         public double TimeMin { get; set; }
 
         public double TimeMax { get; set; }
 
         public int Time { get; set; }
+
+        public double ResourceCapacity { get; set; }
+
+        public double ResourceConsumptionRateMin { get; set; }
+
+        public double ResourceConsumptionRateMax { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
@@ -39,12 +45,12 @@ namespace NetworkModelCode.Core.Domain.Entities
         }
     }
 
-    public static class WorkDataSourceExtension
+    public static class TechnologicalConditionExtension
     {
-        public static string ToStringCustom(this TechnologicalCondition itemDataSource)
+        public static string ToStringCustom(this TechnologicalCondition technologicalCondition)
         {
-            return $"{itemDataSource.Title} {itemDataSource.CodeI} {itemDataSource.CodeJ} " +
-                $"{itemDataSource.Time}";
+            return $"{technologicalCondition.Title} {technologicalCondition.CodeI} {technologicalCondition.CodeJ} " +
+                $"{technologicalCondition.Time}";
         }
     }
 }

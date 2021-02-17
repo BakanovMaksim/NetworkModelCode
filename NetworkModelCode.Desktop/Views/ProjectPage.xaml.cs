@@ -22,7 +22,7 @@ namespace NetworkModelCode.Desktop.Views
         {
             ProjectViewModel.CalculateProjectData();
 
-            var chart = (CartesianChart)ProjectViewModel.ConfigureChart();
+            var chart = (CartesianChart)ProjectViewModel.GetChart();
             ChartGantt.AxisX = chart.AxisX;
             ChartGantt.AxisY = chart.AxisY;
             ChartGantt.Series = chart.Series;

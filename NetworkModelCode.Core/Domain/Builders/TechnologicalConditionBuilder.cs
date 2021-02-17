@@ -26,6 +26,14 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
+        public TechnologicalConditionBuilder SetResource(double capacity, double consumptionRateMin, double consumptionRateMax)
+        {
+            TechnologicalCondition.ResourceCapacity = capacity;
+            TechnologicalCondition.ResourceConsumptionRateMin = consumptionRateMin;
+            TechnologicalCondition.ResourceConsumptionRateMax = consumptionRateMax;
+            return this;
+        }
+
         public TechnologicalConditionBuilder SetTime(double timeMin, double timeMax)
         {
             TechnologicalCondition.TimeMin = timeMin;
