@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
@@ -21,6 +22,8 @@ namespace NetworkModelCode.Core.Domain.Entities
         public double ResourceConsumptionRateMin { get; set; }
 
         public double ResourceConsumptionRateMax { get; set; }
+
+        public IReadOnlyList<double> ResourceConsumptionRates { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }

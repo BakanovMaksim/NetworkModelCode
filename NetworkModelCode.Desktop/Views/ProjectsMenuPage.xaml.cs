@@ -16,7 +16,7 @@ namespace NetworkModelCode.Desktop.Views
 
             DataContext = this;
 
-            projectListBox.ItemsSource = UnitOfWork.Projects.GetAll();
+            //projectListBox.ItemsSource = UnitOfWork.Projects.GetAll();
         }
     }
 }

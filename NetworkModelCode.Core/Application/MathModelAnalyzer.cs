@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace NetworkModelCode.Core.Application
 {
-    public class MathModelAnalyzer
+    internal class MathModelAnalyzer
     {
         private IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; }
         private NumberOfClockCyclesCalculator Calculator { get; }
@@ -18,7 +18,7 @@ namespace NetworkModelCode.Core.Application
             Calculator = new NumberOfClockCyclesCalculator(technologicalConditions);
         }
 
-        public bool CheckCompatibilitySystem()
+        internal bool CheckCompatibilitySystem()
         {
             var timePossibleMinimums = GetTimePossibleMin();
             var timePossibleMaximums = GetTimePossibleMax();
