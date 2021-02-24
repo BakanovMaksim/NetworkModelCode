@@ -38,16 +38,8 @@ namespace NetworkModelCode.Core.Domain.Builders
         public TechnologicalConditionBuilder SetResource(double capacity, double consumptionRateMin, double consumptionRateMax)
         {
             TechnologicalCondition.ResourceCapacity = capacity;
-            TechnologicalCondition.ResourceConsumptionRateMin = consumptionRateMin;
-            TechnologicalCondition.ResourceConsumptionRateMax = consumptionRateMax;
-
-            var consumptionRates = new List<double>();
-            for(int k = 1;k <= TechnologicalCondition.Time;k++)
-            {
-                consumptionRates.Add(capacity / k);
-            }
-
-            TechnologicalCondition.ResourceConsumptionRates = consumptionRates;
+            TechnologicalCondition.ResourceConsumptionMin = consumptionRateMin;
+            TechnologicalCondition.ResourceConsumptionMax = consumptionRateMax;
 
             return this;
         }

@@ -19,11 +19,11 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public double ResourceCapacity { get; set; }
 
-        public double ResourceConsumptionRateMin { get; set; }
+        public double ResourceConsumptionMin { get; set; }
 
-        public double ResourceConsumptionRateMax { get; set; }
+        public double ResourceConsumptionMax { get; set; }
 
-        public IReadOnlyList<double> ResourceConsumptionRates { get; set; }
+        public double ResourceConsumption { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }

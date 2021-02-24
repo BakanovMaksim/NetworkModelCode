@@ -1,5 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
+using System.Linq;
 using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
@@ -27,6 +28,7 @@ namespace NetworkModelCode.Core.Domain.Builders
 
         public ProjectBuilder SetTechnologicalConditions(IReadOnlyList<TechnologicalCondition> technologicalConditions)
         {
+            Project.WorkCount = technologicalConditions.Count;        
             Project.TechnologicalConditions = technologicalConditions;
             return this;
         }
@@ -45,6 +47,7 @@ namespace NetworkModelCode.Core.Domain.Builders
 
         public ProjectBuilder SetTimeCharacteristics(IReadOnlyList<TimeCharacteristic> timeCharacteristics)
         {
+            Project.CycleCount = timeCharacteristics.Max(p => p.EarlyFinish);
             Project.TimeCharacteristics = timeCharacteristics;
             return this;
         }

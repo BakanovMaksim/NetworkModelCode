@@ -8,6 +8,8 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public int WorkCount { get; set; }
 
+        public int CycleCount { get; set; }
+
         public IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
 
         public IReadOnlyList<Resource> Resources { get; set; }
