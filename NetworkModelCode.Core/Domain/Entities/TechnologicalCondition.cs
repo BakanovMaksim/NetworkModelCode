@@ -23,8 +23,6 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public double ResourceConsumptionMax { get; set; }
 
-        public double ResourceConsumption { get; set; }
-
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
         public Project Project { get; set; }

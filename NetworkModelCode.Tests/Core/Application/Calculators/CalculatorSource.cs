@@ -32,20 +32,39 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         internal static IEnumerable<TestCaseData> GetCycleCountValues()
         {
             yield return new TestCaseData(
-                new List<int> { 1, 2, 1, 0, 0, 2, 0, 1, 0, 3, 0 });
+                new List<int> { 1, 2, 1, 2, 1, 2, 1, 1, 1, 3, 2 });
         }
 
         internal static IEnumerable<TestCaseData> GetCycleNumbers()
         {
             yield return new TestCaseData(
-                new List<int> { 1,1,1,2,2,2,2,4,2,2,5},
-                new List<int> { 1,2,1,1,1,3,1,4,1,4,4});
+                new List<int> { 1, 1, 1, 2, 2, 4, 4, 6, 2, 5, 7 },
+                new List<int> { 1, 2, 1, 3, 2, 5, 4, 6, 2, 7, 8 });
         }
 
         internal static IEnumerable<TestCaseData> GetResourceConsumptions()
         {
             yield return new TestCaseData(
-                new List<double> { 5,4,2,0,0,1.5,0,4,0,2.3,0});
+                new List<double> { 5, 4, 2, 4, 5, 1.5, 2, 4, 5, 2.3, 1.5 });
+        }
+
+        internal static IEnumerable<TestCaseData> GetCycleNumberConsumptions()
+        {
+            yield return new TestCaseData(
+                new List<List<int>>
+                {
+                    new List<int>{1},
+                    new List<int>{1,2},
+                    new List<int>{1},
+                    new List<int>{2,3},
+                    new List<int>{2},
+                    new List<int>{4,5},
+                    new List<int>{4},
+                    new List<int>{6},
+                    new List<int>{2},
+                    new List<int>{5,6,7},
+                    new List<int>{7,8}
+                });
         }
 
         internal static IReadOnlyList<TechnologicalCondition> GetTechnologicalConditions()
@@ -55,14 +74,14 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
                 new TechnologicalCondition { Title = "A", CodeI = 1, CodeJ = 2, TimeMin = 5, TimeMax = 10,Time = 10 , ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "B", CodeI = 1, CodeJ = 4, TimeMin = 2, TimeMax = 7,Time = 4 , ResourceCapacity=8, ResourceConsumptionMax=4, ResourceConsumptionMin = 3},
                 new TechnologicalCondition { Title = "C", CodeI = 1, CodeJ = 5, TimeMin = 1, TimeMax = 6,Time = 3 , ResourceCapacity=2, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
-                new TechnologicalCondition { Title = "D", CodeI = 2, CodeJ = 3, TimeMin = 1,TimeMax=4,Time = 3 , ResourceCapacity=0, ResourceConsumptionMax=0, ResourceConsumptionMin = 0},
-                new TechnologicalCondition { Title = "F", CodeI = 2, CodeJ = 8, TimeMin = 8, TimeMax = 13,Time = 10, ResourceCapacity=0, ResourceConsumptionMax=0, ResourceConsumptionMin = 0},
+                new TechnologicalCondition { Title = "D", CodeI = 2, CodeJ = 3, TimeMin = 1,TimeMax=4,Time = 3 , ResourceCapacity=8, ResourceConsumptionMax=4, ResourceConsumptionMin = 3},
+                new TechnologicalCondition { Title = "F", CodeI = 2, CodeJ = 8, TimeMin = 8, TimeMax = 13,Time = 10, ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "E", CodeI = 3, CodeJ = 4, TimeMin = 1, TimeMax = 4,Time = 2 , ResourceCapacity=3, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
-                new TechnologicalCondition { Title = "G", CodeI = 3, CodeJ = 6, TimeMin = 9, TimeMax = 19,Time = 13 , ResourceCapacity=0, ResourceConsumptionMax=0, ResourceConsumptionMin = 0},
+                new TechnologicalCondition { Title = "G", CodeI = 3, CodeJ = 6, TimeMin = 9, TimeMax = 19,Time = 13 , ResourceCapacity=2, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "H", CodeI = 4, CodeJ = 7, TimeMin = 4, TimeMax = 6,Time = 5, ResourceCapacity=4, ResourceConsumptionMax=4, ResourceConsumptionMin = 1 },
-                new TechnologicalCondition{ Title = "M", CodeI = 5, CodeJ=7, TimeMin = 2, TimeMax = 7,Time = 3, ResourceCapacity=0, ResourceConsumptionMax=0, ResourceConsumptionMin = 0},
+                new TechnologicalCondition{ Title = "M", CodeI = 5, CodeJ=7, TimeMin = 2, TimeMax = 7,Time = 3, ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition{Title = "N", CodeI = 6, CodeJ = 8,TimeMin = 7,TimeMax=12,Time = 9, ResourceCapacity=7, ResourceConsumptionMax=3, ResourceConsumptionMin = 3},
-                new TechnologicalCondition{Title = "K",CodeI = 7, CodeJ = 8, TimeMin=1,TimeMax = 3,Time = 6, ResourceCapacity=0, ResourceConsumptionMax=0, ResourceConsumptionMin = 0}
+                new TechnologicalCondition{Title = "K",CodeI = 7, CodeJ = 8, TimeMin=1,TimeMax = 3,Time = 6, ResourceCapacity=3, ResourceConsumptionMax=2, ResourceConsumptionMin = 1}
             };
         }
 

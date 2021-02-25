@@ -20,7 +20,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
             var lines = buffer.Split('\n');
 
-            var technologicalConditionLines = lines.Where(p => p.Split(" ").Count() == 5);
+            var technologicalConditionLines = lines.Where(p => p.Split(" ").Count() == 8);
             var timeCharacteristicLines = lines.Where(p => p.Split(" ").Count() == 6);
 
             var workCount = technologicalConditionLines.Count();
@@ -71,6 +71,9 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
             var isTryCodeJ = int.TryParse(items[2], out var codeJ);
             var isTryTimeMin = double.TryParse(items[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMin);
             var isTryTimeMax = double.TryParse(items[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMax);
+            var isTryResourceCapacity = double.TryParse(items[5], NumberStyles.Float, CultureInfo.InvariantCulture, out var resourceCapacity);
+            var isTryConsumptionMin = double.TryParse(items[6], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMin);
+            var isTryConsumptionMax = double.TryParse(items[7], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMax);
 
             if (!isTryCodeI && !isTryCodeJ
                 && !isTryTimeMin && !isTryTimeMax)
@@ -83,6 +86,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
                 .SetTitle(title)
                 .SetCode(codeI, codeJ)
                 .SetTime(timeMin, timeMax)
+                .SetResource(resourceCapacity,consumptionMin,consumptionMax)
                 .Build();
 
             return true;

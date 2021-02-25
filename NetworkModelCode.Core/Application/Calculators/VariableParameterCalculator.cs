@@ -18,13 +18,14 @@ namespace NetworkModelCode.Core.Application.Calculators
             TechnologicalConditions = technologicalConditions;
         }
 
-        public IEnumerable<VariableParameter> Calculate()
+        public IEnumerable<VariableParameter> Calculate(int cycleCount)
         {
             CycleCountValues = CalculateCycleCountValues().ToList();
 
             var starts = CalculateCycleNumbers().Item1.ToList();
             var finishes = CalculateCycleNumbers().Item2.ToList();
             var resourceConsumptions = CalculateResourceConsumptions(starts, finishes).ToList();
+            var cycleNumberConsumptions = CalculateCycleNumberConsumptions(cycleCount, starts, finishes).ToList();
 
             for(int k = 0;k< starts.Count;k++)
             {
@@ -32,7 +33,8 @@ namespace NetworkModelCode.Core.Application.Calculators
                 {
                     StartCycleNumber = starts[k],
                     FinishCycleNumber = finishes[k],
-                    ResourceConsumption = resourceConsumptions[k]
+                    ResourceConsumption = resourceConsumptions[k],
+                    CycleNumberConsumptions = cycleNumberConsumptions[k]
                 };
             }
         }
@@ -45,8 +47,6 @@ namespace NetworkModelCode.Core.Application.Calculators
             foreach(var item in TechnologicalConditions)
             {
                 var index = TechnologicalConditions.ToList().IndexOf(item);
-
-                var previousNumbers = new List<int>();
 
                 if (TechnologicalConditions.FirstOrDefault(p => p.CodeJ == item.CodeI) == null)
                 {
@@ -75,6 +75,21 @@ namespace NetworkModelCode.Core.Application.Calculators
                 var resourceCapacity = TechnologicalConditions.ElementAtOrDefault(k).ResourceCapacity;
 
                 yield return Math.Round(resourceCapacity / (finishes[k] - starts[k] + 1), 1);
+            }
+        }
+
+        internal IEnumerable<IEnumerable<int>> CalculateCycleNumberConsumptions(int cycleCount, IReadOnlyList<int> starts, IReadOnlyList<int> finishes)
+        {
+            for (int k = 0; k < starts.Count; k++)
+            {
+                var numbers = new List<int>();
+
+                for(int t = 0;t<cycleCount;t++)
+                {
+                    if((t >= starts[k]) && (t <= finishes[k])) numbers.Add(t);
+                }
+
+                yield return numbers;
             }
         }
 

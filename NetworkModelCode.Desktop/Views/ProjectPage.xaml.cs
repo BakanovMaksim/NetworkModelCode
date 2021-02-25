@@ -33,11 +33,6 @@ namespace NetworkModelCode.Desktop.Views
             e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
         }
 
-        private void workSourceDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
-        }
-
         private async void importButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             await ProjectViewModel.ImportWorkDataSourceAsync();

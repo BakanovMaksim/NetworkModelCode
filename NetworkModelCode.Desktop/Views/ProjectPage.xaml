@@ -15,6 +15,12 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="textBlockStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="Black"/>
+        </Style>
         <Style x:Key="toolBarTrayStyle" TargetType="ToolBarTray">
             <Setter Property="Orientation" Value="Vertical"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -48,24 +54,37 @@
         </ToolBarTray>
 
         <Border Grid.Row="0" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
-            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <DataGrid x:Name="workSourceDataGrid" DockPanel.Dock="Top" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding TechnologicalConditionDTOs, Mode=TwoWay}"
-                  AutoGeneratingColumn="workSourceDataGrid_AutoGeneratingColumn">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Исходные данные" Style="{StaticResource textBlockStyle}"/>
+                <DataGrid x:Name="workSourceDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding TechnologicalConditionDTOs, Mode=TwoWay}"
+                  AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
                 </DataGrid>
-                <Separator DockPanel.Dock="Top"/>
-                <DataGrid DockPanel.Dock="Top" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding ResourceDTOs, Mode=TwoWay}">
+                <Separator/>
+                <DataGrid Style="{StaticResource dataGridStyle}" ItemsSource="{Binding ResourceDTOs, Mode=TwoWay}"
+                          AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
                     
                 </DataGrid>
                 <Button x:Name="enterButton" DockPanel.Dock="Bottom" Content="Расчет" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="enterButton_Click"/>
-            </DockPanel>
+            </StackPanel>
         </Border>
 
         <Border Grid.Row="0" Grid.Column="2" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
-            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Временные характеристики" Style="{StaticResource textBlockStyle}"/>
                 <DataGrid x:Name="workTimeCharacteristicDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding TimeCharacteristicDTOs, Mode=TwoWay}"
                   IsReadOnly="True" AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
                 </DataGrid>
-            </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Допустимое решение" Style="{StaticResource textBlockStyle}"/>
+                <DataGrid x:Name="variableParameterDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding VariableParameterDTOs, Mode=TwoWay}"
+                          IsReadOnly="True" AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
+                    
+                </DataGrid>
+            </StackPanel>
         </Border>
 
         <lvc:CartesianChart x:Name="ChartGantt" Grid.Row="1" Grid.Column="2" LegendLocation="Right">

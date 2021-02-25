@@ -47,7 +47,6 @@ namespace NetworkModelCode.Core.Domain.Builders
 
         public ProjectBuilder SetTimeCharacteristics(IReadOnlyList<TimeCharacteristic> timeCharacteristics)
         {
-            Project.CycleCount = timeCharacteristics.Max(p => p.EarlyFinish);
             Project.TimeCharacteristics = timeCharacteristics;
             return this;
         }

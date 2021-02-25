@@ -47,5 +47,16 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
 
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(CalculatorSource),nameof(CalculatorSource.GetCycleNumberConsumptions))]
+        public void CalculateCycleNumberConsumptions(IEnumerable<IEnumerable<int>> expected)
+        {
+            Calculator.CycleCountValues = Calculator.CalculateCycleCountValues().ToList();
+            var (starts, finishes) = Calculator.CalculateCycleNumbers();
+
+            var actual = Calculator.CalculateCycleNumberConsumptions(31, starts.ToList(), finishes.ToList());
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

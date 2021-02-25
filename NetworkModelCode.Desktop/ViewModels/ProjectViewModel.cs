@@ -25,6 +25,7 @@ namespace NetworkModelCode.Desktop.ViewModels
         public ObservableCollection<TechnologicalConditionDTO> TechnologicalConditionDTOs { get; set; }
         public ObservableCollection<TimeCharacteristicDTO> TimeCharacteristicDTOs { get; set; }
         public ObservableCollection<ResourceDTO> ResourceDTOs { get; set; }
+        public ObservableCollection<VariableParameterDTO> VariableParameterDTOs { get; set; }
         public Project Project { get; private set; }
         public ProjectDTO ProjectDTO { get; set; }
 
@@ -37,6 +38,7 @@ namespace NetworkModelCode.Desktop.ViewModels
             TechnologicalConditionDTOs = new();
             TimeCharacteristicDTOs = new();
             ResourceDTOs = new();
+            VariableParameterDTOs = new();
             ProjectDTO = new();
         }
 
@@ -60,13 +62,32 @@ namespace NetworkModelCode.Desktop.ViewModels
 
             var networkEventCalculator = new NetworkEventCalculator();
             var networkEvents = networkEventCalculator.Calculate(technologicalConditions).ToList();
+
             var timeCharacteristicCalculator = new TimeCharacteristicCalculator();
             var timeCharacteristics = timeCharacteristicCalculator.Calculate(technologicalConditions, networkEvents).ToList();
 
+            var variableParameterCalculator = new VariableParameterCalculator(technologicalConditions);
+            var cycleCount = timeCharacteristics.Max(p => p.EarlyFinish);
+            var variableParameters = variableParameterCalculator.Calculate(cycleCount);
+
             foreach (var item in timeCharacteristics)
             {
-                var timeCharacteristicDto = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
-                TimeCharacteristicDTOs.Add(timeCharacteristicDto);
+                var timeCharacteristicDTO = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
+                TimeCharacteristicDTOs.Add(timeCharacteristicDTO);
+            }
+
+            foreach(var parameter in variableParameters)
+            {
+                var variableParameterDTO = Mapper.Map<VariableParameter, VariableParameterDTO>(parameter);
+
+                var buffer = string.Empty;
+                foreach(var item in parameter.CycleNumberConsumptions)
+                {
+                    buffer += $"{item} ";
+                }
+
+                variableParameterDTO.CycleNumberConsumptions = buffer;
+                VariableParameterDTOs.Add(variableParameterDTO);
             }
 
             Project = new ProjectBuilder()
