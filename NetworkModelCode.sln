@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.Tests", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.Desktop", "NetworkModelCode.Desktop\NetworkModelCode.Desktop.csproj", "{7EDFEFE3-0C93-4E4E-8758-4FDA60DD3310}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.DataBase", "NetworkModelCode.Repository\NetworkModelCode.DataBase.csproj", "{345890F4-3F03-4CC9-87E1-76544E3FC140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkModelCode.Database", "NetworkModelCode.Repository\NetworkModelCode.Database.csproj", "{345890F4-3F03-4CC9-87E1-76544E3FC140}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

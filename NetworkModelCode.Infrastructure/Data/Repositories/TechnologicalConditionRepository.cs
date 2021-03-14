@@ -9,64 +9,64 @@ using System.Threading.Tasks;
 
 namespace NetworkModelCode.Infrastructure.Data.Repositories
 {
-    public class ItemDataSourceRepository : IRepository<ItemDataSource>
+    public class TechnologicalConditionRepository : IRepository<TechnologicalCondition>
     {
         private NetworkModelContext Context { get; }
 
-        public ItemDataSourceRepository(NetworkModelContext context)
+        public TechnologicalConditionRepository(NetworkModelContext context)
         {
             Context = context;
         }
 
-        public IEnumerable<ItemDataSource> GetAll()
+        public IEnumerable<TechnologicalCondition> GetAll()
         {
             return Context
-                .ItemsDataSource
+                .TechnologicalConditions
                 .AsNoTracking()
-                .ToList() ?? new List<ItemDataSource>();
+                .ToList() ?? new List<TechnologicalCondition>();
         }
 
-        public async Task<ItemDataSource> GetByIdAsync(int id)
+        public async Task<TechnologicalCondition> GetByIdAsync(int id)
         {
             return await Context
-                .ItemsDataSource
-                .FindAsync(id) ?? new ItemDataSource();
+                .TechnologicalConditions
+                .FindAsync(id) ?? new TechnologicalCondition();
         }
 
-        public async Task AddAsync(ItemDataSource entity)
+        public async Task AddAsync(TechnologicalCondition entity)
         {
             if (entity != null)
             {
-                await Context.ItemsDataSource.AddAsync(entity);
+                await Context.TechnologicalConditions.AddAsync(entity);
                 await Context.SaveChangesAsync();
             }
         }
 
-        public async Task AddRangeAsync(IEnumerable<ItemDataSource> entities)
+        public async Task AddRangeAsync(IEnumerable<TechnologicalCondition> entities)
         {
             if(entities.Count() > 0)
             {
-                await Context.ItemsDataSource.AddRangeAsync(entities);
+                await Context.TechnologicalConditions.AddRangeAsync(entities);
                 await Context.SaveChangesAsync();
             }
         }
 
-        public async Task UpdateAsync(ItemDataSource entity)
+        public async Task UpdateAsync(TechnologicalCondition entity)
         {
             if(entity != null)
             {
-                Context.ItemsDataSource.Update(entity);
+                Context.TechnologicalConditions.Update(entity);
                 await Context.SaveChangesAsync();
             }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var itemDataSource = Context.ItemsDataSource.FirstOrDefault(p => p.Id == id);
+            var itemDataSource = Context.TechnologicalConditions.FirstOrDefault(p => p.Id == id);
 
             if(itemDataSource != null)
             {
-                Context.ItemsDataSource.Remove(itemDataSource);
+                Context.TechnologicalConditions.Remove(itemDataSource);
                 await Context.SaveChangesAsync();
             }
         }

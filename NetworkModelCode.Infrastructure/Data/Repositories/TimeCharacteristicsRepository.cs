@@ -9,40 +9,40 @@ using System.Threading.Tasks;
 
 namespace NetworkModelCode.Infrastructure.Data.Repositories
 {
-    public class ItemTimeCharacteristicRepository : IRepository<ItemTimeCharacteristic>
+    public class TimeCharacteristicsRepository : IRepository<TimeCharacteristic>
     {
         private NetworkModelContext Context { get; }
 
-        public ItemTimeCharacteristicRepository(NetworkModelContext context)
+        public TimeCharacteristicsRepository(NetworkModelContext context)
         {
             Context = context;
         }
 
-        public IEnumerable<ItemTimeCharacteristic> GetAll()
+        public IEnumerable<TimeCharacteristic> GetAll()
         {
             return Context
-                .ItemsTimeCharacteristic
+                .TimeCharacteristics
                 .AsNoTracking()
-                .ToList() ?? new List<ItemTimeCharacteristic>();
+                .ToList() ?? new List<TimeCharacteristic>();
         }
 
-        public async Task<ItemTimeCharacteristic> GetByIdAsync(int id)
+        public async Task<TimeCharacteristic> GetByIdAsync(int id)
         {
             return await Context
-                .ItemsTimeCharacteristic
-                .FindAsync(id) ?? new ItemTimeCharacteristic();
+                .TimeCharacteristics
+                .FindAsync(id) ?? new TimeCharacteristic();
         }
 
-        public async Task AddAsync(ItemTimeCharacteristic entity)
+        public async Task AddAsync(TimeCharacteristic entity)
         {
             if (entity != null)
             {
-                await Context.ItemsTimeCharacteristic.AddAsync(entity);
+                await Context.TimeCharacteristics.AddAsync(entity);
                 await Context.SaveChangesAsync();
             }
         }
 
-        public async Task AddRangeAsync(IEnumerable<ItemTimeCharacteristic> entities)
+        public async Task AddRangeAsync(IEnumerable<TimeCharacteristic> entities)
         {
             if(entities.Count() > 0)
             {
@@ -51,22 +51,22 @@ namespace NetworkModelCode.Infrastructure.Data.Repositories
             }
         }
 
-        public async Task UpdateAsync(ItemTimeCharacteristic entity)
+        public async Task UpdateAsync(TimeCharacteristic entity)
         {
             if (entity != null)
             {
-                Context.ItemsTimeCharacteristic.Update(entity);
+                Context.TimeCharacteristics.Update(entity);
                 await Context.SaveChangesAsync();
             }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var itemTimeCharacteristic = Context.ItemsTimeCharacteristic.FirstOrDefault(p => p.Id == id);
+            var itemTimeCharacteristic = Context.TimeCharacteristics.FirstOrDefault(p => p.Id == id);
 
             if(itemTimeCharacteristic != null)
             {
-                Context.ItemsTimeCharacteristic.Remove(itemTimeCharacteristic);
+                Context.TimeCharacteristics.Remove(itemTimeCharacteristic);
                 await Context.SaveChangesAsync();
             }
         }

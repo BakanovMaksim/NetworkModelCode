@@ -1,5 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
+using System.Linq;
 using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
@@ -25,15 +26,28 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public ProjectBuilder SetItemsDataSource(IReadOnlyList<ItemDataSource> itemsDataSource)
+        public ProjectBuilder SetTechnologicalConditions(IReadOnlyList<TechnologicalCondition> technologicalConditions)
         {
-            Project.ItemsDataSource = itemsDataSource;
+            Project.WorkCount = technologicalConditions.Count;        
+            Project.TechnologicalConditions = technologicalConditions;
             return this;
         }
 
-        public ProjectBuilder SetItemsTimeCharacteristic(IReadOnlyList<ItemTimeCharacteristic> itemsTimeCharacteristic)
+        public ProjectBuilder SetResources(IReadOnlyList<Resource> resources)
         {
-            Project.ItemsTimeCharacteristic = itemsTimeCharacteristic;
+            Project.Resources = resources;
+            return this;
+        }
+
+        public ProjectBuilder SetNetworkEvents(IReadOnlyList<NetworkEvent> events)
+        {
+            Project.NetworkEvents = events;
+            return this;
+        }
+
+        public ProjectBuilder SetTimeCharacteristics(IReadOnlyList<TimeCharacteristic> timeCharacteristics)
+        {
+            Project.TimeCharacteristics = timeCharacteristics;
             return this;
         }
 

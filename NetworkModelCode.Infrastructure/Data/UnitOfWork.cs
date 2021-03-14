@@ -7,8 +7,8 @@ namespace NetworkModelCode.Infrastructure.Data
         private NetworkModelContext Context { get; }
 
         private ProjectRepository projectRepository;
-        private ItemDataSourceRepository itemDataSourceRepository;
-        private ItemTimeCharacteristicRepository itemTimeCharacteristicRepository;
+        private TechnologicalConditionRepository technologicalConditionRepository;
+        private TimeCharacteristicsRepository timeCharacteristicRepository;
 
         public ProjectRepository Projects
         {
@@ -20,23 +20,23 @@ namespace NetworkModelCode.Infrastructure.Data
             }
         }
 
-        public ItemDataSourceRepository ItemsDataSource
+        public TechnologicalConditionRepository TechnologicalConditions
         {
             get
             {
-                if (itemDataSourceRepository == null)
-                    itemDataSourceRepository = new ItemDataSourceRepository(Context);
-                return itemDataSourceRepository;
+                if (technologicalConditionRepository == null)
+                    technologicalConditionRepository = new TechnologicalConditionRepository(Context);
+                return technologicalConditionRepository;
             }
         }
 
-        public ItemTimeCharacteristicRepository ItemsTimeCharacteristic
+        public TimeCharacteristicsRepository TimeCharacteristics
         {
             get
             {
-                if (itemTimeCharacteristicRepository == null)
-                    itemTimeCharacteristicRepository = new ItemTimeCharacteristicRepository(Context);
-                return itemTimeCharacteristicRepository;
+                if (timeCharacteristicRepository == null)
+                    timeCharacteristicRepository = new TimeCharacteristicsRepository(Context);
+                return timeCharacteristicRepository;
             }
         }
 

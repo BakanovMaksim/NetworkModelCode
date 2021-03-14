@@ -1,7 +1,9 @@
 ﻿using NetworkModelCode.Core.Domain.Builders;
 using NetworkModelCode.Core.Domain.Entities;
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace NetworkModelCode.Infrastructure.Business.Parsers
@@ -18,47 +20,47 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
             var lines = buffer.Split('\n');
 
-            var linesDataSource = lines.Where(p => p.Split(" ").Count() == 4);
-            var linesTimeCharacteristic = lines.Where(p => p.Split(" ").Count() == 6);
+            var technologicalConditionLines = lines.Where(p => p.Split(" ").Count() == 8);
+            var timeCharacteristicLines = lines.Where(p => p.Split(" ").Count() == 6);
 
-            var workCount = linesDataSource.Count();
+            var workCount = technologicalConditionLines.Count();
 
-            var itemsDataSource = new List<ItemDataSource>(workCount);
-            foreach (var line in linesDataSource)
+            var technologicalConditions = new List<TechnologicalCondition>(workCount);
+            foreach (var line in technologicalConditionLines)
             {
-                var isTry = TryParseItemDataSource(line, out var itemDataSource);
+                var isTry = TryParseTechnologicalCondition(line, out var technologicalCondition);
 
                 if (isTry)
                 {
-                    itemsDataSource.Add(itemDataSource);
+                    technologicalConditions.Add(technologicalCondition);
                 }
             }
 
-            var itemsTimeCharacteristic = new List<ItemTimeCharacteristic>(workCount);
-            foreach (var line in linesTimeCharacteristic)
+            var itemsTimeCharacteristic = new List<TimeCharacteristic>(workCount);
+            foreach (var line in timeCharacteristicLines)
             {
-                var isTry = TryParseItemTimeCharacteristic(line, out var itemTimeCharacteristic);
+                var isTry = TryParseTimeCharacteristic(line, out var timeCharacteristic);
 
                 if (isTry)
                 {
-                    itemsTimeCharacteristic.Add(itemTimeCharacteristic);
+                    itemsTimeCharacteristic.Add(timeCharacteristic);
                 }
             }
 
             project = new ProjectBuilder()
                     .SetWorkCount(workCount)
-                    .SetItemsDataSource(itemsDataSource)
-                    .SetItemsTimeCharacteristic(itemsTimeCharacteristic)
+                    .SetTechnologicalConditions(technologicalConditions)
+                    .SetTimeCharacteristics(itemsTimeCharacteristic)
                     .Build();
 
             return true;
         }
 
-        private static bool TryParseItemDataSource(string line, out ItemDataSource itemDataSource)
+        private static bool TryParseTechnologicalCondition(string line, out TechnologicalCondition technologicalCondition)
         {
             if (string.IsNullOrWhiteSpace(line))
             {
-                itemDataSource = null;
+                technologicalCondition = null;
                 return false;
             }
 
@@ -67,28 +69,34 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
             var title = items[0];
             var isTryCodeI = int.TryParse(items[1], out var codeI);
             var isTryCodeJ = int.TryParse(items[2], out var codeJ);
-            var isTryTime = int.TryParse(items[3], out var time);
+            var isTryTimeMin = double.TryParse(items[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMin);
+            var isTryTimeMax = double.TryParse(items[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMax);
+            var isTryResourceCapacity = double.TryParse(items[5], NumberStyles.Float, CultureInfo.InvariantCulture, out var resourceCapacity);
+            var isTryConsumptionMin = double.TryParse(items[6], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMin);
+            var isTryConsumptionMax = double.TryParse(items[7], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMax);
 
-            if (!isTryCodeI && !isTryCodeJ && !isTryTime)
+            if (!isTryCodeI && !isTryCodeJ
+                && !isTryTimeMin && !isTryTimeMax)
             {
-                itemDataSource = null;
+                technologicalCondition = null;
                 return false;
             }
 
-            itemDataSource = new ItemDataSourceBuilder()
+            technologicalCondition = new TechnologicalConditionBuilder()
                 .SetTitle(title)
                 .SetCode(codeI, codeJ)
-                .SetTime(time)
+                .SetTime(timeMin, timeMax)
+                .SetResource(resourceCapacity,consumptionMin,consumptionMax)
                 .Build();
 
             return true;
         }
 
-        private static bool TryParseItemTimeCharacteristic(string line, out ItemTimeCharacteristic itemTimeCharacteristic)
+        private static bool TryParseTimeCharacteristic(string line, out TimeCharacteristic timeCharacteristic)
         {
             if (string.IsNullOrWhiteSpace(line))
             {
-                itemTimeCharacteristic = null;
+                timeCharacteristic = null;
                 return false;
             }
 
@@ -104,11 +112,11 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
             if (!isTryEarlyStart && !isTryEarlyFinish && !isTryLateStart
                 && !isTryLateFinish && !isTryReserveFullTime && !isTryReserveFreeTime)
             {
-                itemTimeCharacteristic = null;
+                timeCharacteristic = null;
                 return false;
             }
 
-            itemTimeCharacteristic = new ItemTimeCharacteristicBuilder()
+            timeCharacteristic = new TimeCharacteristicBuilder()
                 .SetEarly(earlyStart, earlyFinish)
                 .SetLate(lateStart, lateFinish)
                 .SetReserve(reserveFullTime, reserveFreeTime)

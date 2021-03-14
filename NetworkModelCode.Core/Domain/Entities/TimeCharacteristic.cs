@@ -2,9 +2,8 @@
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
-    public class ItemTimeCharacteristic : BaseEntity
+    public class TimeCharacteristic : BaseEntity
     {
-
         public int EarlyStart { get; set; }
 
         public int EarlyFinish { get; set; }
@@ -23,7 +22,7 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public override bool Equals(object obj)
         {
-            var itemTimeCharacteristic = obj as ItemTimeCharacteristic;
+            var itemTimeCharacteristic = obj as TimeCharacteristic;
 
             if (itemTimeCharacteristic == null)
                 return false;
@@ -37,13 +36,13 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Id * 2;
         }
     }
 
     public static class WorkTimeCharacteristicExtension
     {
-        public static string ToStringCustom(this ItemTimeCharacteristic itemTimeCharacteristic)
+        public static string ToStringCustom(this TimeCharacteristic itemTimeCharacteristic)
         {
             return $"{itemTimeCharacteristic.EarlyStart} " +
                 $"{itemTimeCharacteristic.EarlyFinish} " +

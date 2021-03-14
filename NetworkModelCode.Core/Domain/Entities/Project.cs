@@ -8,9 +8,15 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public int WorkCount { get; set; }
 
-        public IReadOnlyList<ItemDataSource> ItemsDataSource { get; set; }
+        public int CycleCount { get; set; }
 
-        public IReadOnlyList<ItemTimeCharacteristic> ItemsTimeCharacteristic { get; set; }
+        public IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
+
+        public IReadOnlyList<Resource> Resources { get; set; }
+
+        public IReadOnlyList<NetworkEvent> NetworkEvents { get; set; }
+
+        public IReadOnlyList<TimeCharacteristic> TimeCharacteristics { get; set; }
 
         public override string ToString() => $"{WorkCount}";
     }

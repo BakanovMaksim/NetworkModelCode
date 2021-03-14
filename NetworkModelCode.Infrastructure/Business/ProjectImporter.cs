@@ -8,13 +8,6 @@ namespace NetworkModelCode.Infrastructure.Business
 {
     public class ProjectImporter
     {
-        private ProjectTextParser Parser { get; }
-
-        public ProjectImporter()
-        {
-            Parser = new();
-        }
-
         public async Task<Project> ImportAsync(string fileName)
         {
             var buffer = await ReadWorkDataSourceFileAsync(fileName);

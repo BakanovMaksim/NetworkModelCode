@@ -25,8 +25,8 @@ namespace NetworkModelCode.Tests.Infrastructure.Business.Parsers
             if (expectedIsTry)
             {
                 Assert.AreEqual(expectedProject.WorkCount, actualProject.WorkCount);
-                CollectionAssert.AreEqual(expectedProject.ItemsDataSource, actualProject.ItemsDataSource);
-                CollectionAssert.AreEqual(expectedProject.ItemsTimeCharacteristic, actualProject.ItemsTimeCharacteristic);
+                CollectionAssert.AreEqual(expectedProject.TechnologicalConditions, actualProject.TechnologicalConditions);
+                //CollectionAssert.AreEqual(expectedProject.TimeCharacteristics, actualProject.TimeCharacteristics);
             }
         }
     }

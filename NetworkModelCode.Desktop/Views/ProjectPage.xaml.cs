@@ -22,18 +22,13 @@ namespace NetworkModelCode.Desktop.Views
         {
             ProjectViewModel.CalculateProjectData();
 
-            var chart = (CartesianChart)ProjectViewModel.ConfigureChart();
+            var chart = (CartesianChart)ProjectViewModel.GetChart();
             ChartGantt.AxisX = chart.AxisX;
             ChartGantt.AxisY = chart.AxisY;
             ChartGantt.Series = chart.Series;
         }
 
         private void workTimeCharacteristicDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
-        }
-
-        private void workSourceDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.Header = ((PropertyDescriptor)e.PropertyDescriptor).DisplayName;
         }
@@ -55,7 +50,7 @@ namespace NetworkModelCode.Desktop.Views
 
         private async void saveButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            await ProjectViewModel.SaveProjectDataAsync();
+            await ProjectViewModel.SaveProjecAsync();
         }
     }
 }
