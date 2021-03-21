@@ -55,15 +55,12 @@
 
         <Border Grid.Row="0" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Исходные данные" Style="{StaticResource textBlockStyle}"/>
+                <TextBlock Text="Технологические параметры" Style="{StaticResource textBlockStyle}"/>
                 <DataGrid x:Name="workSourceDataGrid" Style="{StaticResource dataGridStyle}" ItemsSource="{Binding TechnologicalConditionDTOs, Mode=TwoWay}"
                   AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
                 </DataGrid>
                 <Separator/>
-                <DataGrid Style="{StaticResource dataGridStyle}" ItemsSource="{Binding ResourceDTOs, Mode=TwoWay}"
-                          AutoGeneratingColumn="workTimeCharacteristicDataGrid_AutoGeneratingColumn">
-                    
-                </DataGrid>
+                
                 <Button x:Name="enterButton" DockPanel.Dock="Bottom" Content="Расчет" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="enterButton_Click"/>
             </StackPanel>
         </Border>

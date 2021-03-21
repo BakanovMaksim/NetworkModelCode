@@ -13,6 +13,8 @@ using NetworkModelCode.Infrastructure.Data;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using System.Diagnostics;
 
 namespace NetworkModelCode.Desktop.ViewModels
 {
@@ -60,44 +62,47 @@ namespace NetworkModelCode.Desktop.ViewModels
                 ObservableCollection<Resource>>
                 (ResourceDTOs).ToList();
 
-            var networkEventCalculator = new NetworkEventCalculator();
-            var networkEvents = networkEventCalculator.Calculate(technologicalConditions).ToList();
-
-            var timeCharacteristicCalculator = new TimeCharacteristicCalculator();
-            var timeCharacteristics = timeCharacteristicCalculator.Calculate(technologicalConditions, networkEvents).ToList();
-
-            var variableParameterCalculator = new VariableParameterCalculator(technologicalConditions);
-            var cycleCount = timeCharacteristics.Max(p => p.EarlyFinish);
-            var variableParameters = variableParameterCalculator.Calculate(cycleCount);
-
-            foreach (var item in timeCharacteristics)
+            try
             {
-                var timeCharacteristicDTO = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
-                TimeCharacteristicDTOs.Add(timeCharacteristicDTO);
-            }
+                var timeCharacteristicCalculator = new TimeCharacteristicCalculator(technologicalConditions);
+                var timeCharacteristics = timeCharacteristicCalculator.Calculate().ToList();
 
-            foreach(var parameter in variableParameters)
-            {
-                var variableParameterDTO = Mapper.Map<VariableParameter, VariableParameterDTO>(parameter);
+                var variableParameterCalculator = new VariableParameterCalculator(technologicalConditions);
+                var cycleCount = timeCharacteristics.Max(p => p.EarlyFinish);
+                var variableParameters = variableParameterCalculator.Calculate(cycleCount);
 
-                var buffer = string.Empty;
-                foreach(var item in parameter.CycleNumberConsumptions)
+                foreach (var item in timeCharacteristics)
                 {
-                    buffer += $"{item} ";
+                    var timeCharacteristicDTO = Mapper.Map<TimeCharacteristic, TimeCharacteristicDTO>(item);
+                    TimeCharacteristicDTOs.Add(timeCharacteristicDTO);
                 }
 
-                variableParameterDTO.CycleNumberConsumptions = buffer;
-                VariableParameterDTOs.Add(variableParameterDTO);
-            }
+                foreach (var parameter in variableParameters)
+                {
+                    var variableParameterDTO = Mapper.Map<VariableParameter, VariableParameterDTO>(parameter);
 
-            Project = new ProjectBuilder()
-                .SetTitle(ProjectDTO.Title)
-                .SetWorkCount(ProjectDTO.WorkCount)
-                .SetTechnologicalConditions(technologicalConditions)
-                .SetResources(resources)
-                .SetNetworkEvents(networkEvents)
-                .SetTimeCharacteristics(timeCharacteristics)
-                .Build();
+                    var buffer = string.Empty;
+                    foreach (var item in parameter.CycleNumberConsumptions)
+                    {
+                        buffer += $"{item} ";
+                    }
+
+                    variableParameterDTO.CycleNumberConsumptions = buffer;
+                    VariableParameterDTOs.Add(variableParameterDTO);
+                }
+
+                Project = new ProjectBuilder()
+                    .SetTitle(ProjectDTO.Title)
+                    .SetWorkCount(ProjectDTO.WorkCount)
+                    .SetTechnologicalConditions(technologicalConditions)
+                    .SetResources(resources)
+                    .SetTimeCharacteristics(timeCharacteristics)
+                    .Build();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
         }
 
         public async Task SaveProjecAsync()

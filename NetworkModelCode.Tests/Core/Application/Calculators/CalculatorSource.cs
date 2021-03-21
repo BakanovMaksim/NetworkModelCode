@@ -71,17 +71,17 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         {
             return new List<TechnologicalCondition>
             {
-                new TechnologicalCondition { Title = "A", CodeI = 1, CodeJ = 2, TimeMin = 5, TimeMax = 10,Time = 10 , ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
+                new TechnologicalCondition { Title = "A", CodeI = 1, CodeJ = 2, TimeMin = 5, TimeMax = 10,Time = 7 , ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "B", CodeI = 1, CodeJ = 4, TimeMin = 2, TimeMax = 7,Time = 4 , ResourceCapacity=8, ResourceConsumptionMax=4, ResourceConsumptionMin = 3},
                 new TechnologicalCondition { Title = "C", CodeI = 1, CodeJ = 5, TimeMin = 1, TimeMax = 6,Time = 3 , ResourceCapacity=2, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
-                new TechnologicalCondition { Title = "D", CodeI = 2, CodeJ = 3, TimeMin = 1,TimeMax=4,Time = 3 , ResourceCapacity=8, ResourceConsumptionMax=4, ResourceConsumptionMin = 3},
+                new TechnologicalCondition { Title = "D", CodeI = 2, CodeJ = 3, TimeMin = 1,TimeMax=4,Time = 2 , ResourceCapacity=8, ResourceConsumptionMax=4, ResourceConsumptionMin = 3},
                 new TechnologicalCondition { Title = "F", CodeI = 2, CodeJ = 8, TimeMin = 8, TimeMax = 13,Time = 10, ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "E", CodeI = 3, CodeJ = 4, TimeMin = 1, TimeMax = 4,Time = 2 , ResourceCapacity=3, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "G", CodeI = 3, CodeJ = 6, TimeMin = 9, TimeMax = 19,Time = 13 , ResourceCapacity=2, ResourceConsumptionMax=2, ResourceConsumptionMin = 1},
                 new TechnologicalCondition { Title = "H", CodeI = 4, CodeJ = 7, TimeMin = 4, TimeMax = 6,Time = 5, ResourceCapacity=4, ResourceConsumptionMax=4, ResourceConsumptionMin = 1 },
-                new TechnologicalCondition{ Title = "M", CodeI = 5, CodeJ=7, TimeMin = 2, TimeMax = 7,Time = 3, ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
+                new TechnologicalCondition{ Title = "M", CodeI = 5, CodeJ=7, TimeMin = 2, TimeMax = 7,Time = 4, ResourceCapacity=5, ResourceConsumptionMax=5, ResourceConsumptionMin = 1},
                 new TechnologicalCondition{Title = "N", CodeI = 6, CodeJ = 8,TimeMin = 7,TimeMax=12,Time = 9, ResourceCapacity=7, ResourceConsumptionMax=3, ResourceConsumptionMin = 3},
-                new TechnologicalCondition{Title = "K",CodeI = 7, CodeJ = 8, TimeMin=1,TimeMax = 3,Time = 6, ResourceCapacity=3, ResourceConsumptionMax=2, ResourceConsumptionMin = 1}
+                new TechnologicalCondition{Title = "K",CodeI = 7, CodeJ = 8, TimeMin=1,TimeMax = 3,Time = 2, ResourceCapacity=3, ResourceConsumptionMax=2, ResourceConsumptionMin = 1}
             };
         }
 

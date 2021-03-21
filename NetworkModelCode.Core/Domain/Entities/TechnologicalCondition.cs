@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
@@ -8,8 +8,8 @@ namespace NetworkModelCode.Core.Domain.Entities
         public string Title { get; set; }
 
         public int CodeI { get; set; }
-       
-        public int CodeJ { get; set; }     
+
+        public int CodeJ { get; set; }
 
         public double TimeMin { get; set; }
 
@@ -22,6 +22,8 @@ namespace NetworkModelCode.Core.Domain.Entities
         public double ResourceConsumptionMin { get; set; }
 
         public double ResourceConsumptionMax { get; set; }
+
+        public DateTime? DirectiveDate { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }

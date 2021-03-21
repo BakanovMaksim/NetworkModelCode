@@ -1,7 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
 using System;
-using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
 {

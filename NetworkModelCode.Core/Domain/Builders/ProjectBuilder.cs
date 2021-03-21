@@ -1,6 +1,5 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
-using System.Linq;
 using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
