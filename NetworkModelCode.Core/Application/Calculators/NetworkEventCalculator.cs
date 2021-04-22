@@ -1,5 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,11 +8,16 @@ namespace NetworkModelCode.Core.Application.Calculators
 {
     public class NetworkEventCalculator
     {
-        private IReadOnlyList<TechnologicalCondition> TechnologicalConditions { get; set; }
+        private static IReadOnlyList<TechnologicalCondition> _technologicalConditions;
 
-        public IEnumerable<NetworkEvent> Calculate(IReadOnlyList<TechnologicalCondition> technologicalConditions)
+        public static IEnumerable<NetworkEvent> Calculate(IReadOnlyList<TechnologicalCondition> technologicalConditions)
         {
-            TechnologicalConditions = technologicalConditions;
+            if (technologicalConditions == null)
+            {
+                throw new ArgumentNullException("Передана пустая ссылка.", nameof(technologicalConditions));
+            }
+
+            _technologicalConditions = technologicalConditions;
 
             var earlyCompletionDate = CalculateEarlyCompletionDate().ToList();
             var lateCompletionDate = CalculateLateCompletionDate(earlyCompletionDate).ToList();
@@ -28,9 +34,9 @@ namespace NetworkModelCode.Core.Application.Calculators
             }
         }
 
-        public IEnumerable<int> CalculateEarlyCompletionDate()
+        private static IEnumerable<int> CalculateEarlyCompletionDate()
         {
-            var eventCount = TechnologicalConditions.LastOrDefault().CodeJ;
+            var eventCount = _technologicalConditions.LastOrDefault().CodeJ;
             var earlys = new List<int>(eventCount);
 
             for (int k = 1; k < eventCount + 1; k++)
@@ -42,7 +48,7 @@ namespace NetworkModelCode.Core.Application.Calculators
                 }
 
                 var works = new List<TechnologicalCondition>();
-                foreach (var tecnologicalCondition in TechnologicalConditions)
+                foreach (var tecnologicalCondition in _technologicalConditions)
                 {
                     if (k == tecnologicalCondition.CodeJ)
                         works.Add(tecnologicalCondition);
@@ -55,9 +61,9 @@ namespace NetworkModelCode.Core.Application.Calculators
             return earlys;
         }
 
-        public IEnumerable<int> CalculateLateCompletionDate(IEnumerable<int> earlys)
+        private static IEnumerable<int> CalculateLateCompletionDate(IEnumerable<int> earlys)
         {
-            var eventCount = TechnologicalConditions.LastOrDefault().CodeJ;
+            var eventCount = _technologicalConditions.LastOrDefault().CodeJ;
             var lates = new List<int>(eventCount);
 
             for (int k = eventCount; k > 0; k--)
@@ -69,7 +75,7 @@ namespace NetworkModelCode.Core.Application.Calculators
                 }
 
                 var works = new List<TechnologicalCondition>();
-                foreach (var technologicalCondition in TechnologicalConditions)
+                foreach (var technologicalCondition in _technologicalConditions)
                 {
                     if (k == technologicalCondition.CodeI)
                         works.Add(technologicalCondition);
@@ -83,7 +89,7 @@ namespace NetworkModelCode.Core.Application.Calculators
             return lates;
         }
 
-        public IEnumerable<int> CalculateTimeReserveCompletionDate(IReadOnlyList<int> earlys, IReadOnlyList<int> lates)
+        private static IEnumerable<int> CalculateTimeReserveCompletionDate(IReadOnlyList<int> earlys, IReadOnlyList<int> lates)
         {
             for (int k = 0; k < earlys.Count; k++)
             {

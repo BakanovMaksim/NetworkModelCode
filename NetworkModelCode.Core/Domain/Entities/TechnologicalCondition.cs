@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
@@ -8,12 +7,8 @@ namespace NetworkModelCode.Core.Domain.Entities
         public string Title { get; set; }
 
         public int CodeI { get; set; }
-       
-        public int CodeJ { get; set; }     
 
-        public double TimeMin { get; set; }
-
-        public double TimeMax { get; set; }
+        public int CodeJ { get; set; }
 
         public int Time { get; set; }
 
@@ -32,12 +27,14 @@ namespace NetworkModelCode.Core.Domain.Entities
             var itemDataSource = obj as TechnologicalCondition;
 
             if (itemDataSource == null)
+            {
                 return false;
+            }
 
             return
                 (this.CodeI == itemDataSource.CodeI) && (this.CodeJ == itemDataSource.CodeJ)
-                && (this.TimeMin == TimeMin) && (this.TimeMax == TimeMax)
-                ? true : false;
+                ? true
+                : false;
         }
 
         public override int GetHashCode()
@@ -50,8 +47,10 @@ namespace NetworkModelCode.Core.Domain.Entities
     {
         public static string ToStringCustom(this TechnologicalCondition technologicalCondition)
         {
-            return $"{technologicalCondition.Title} {technologicalCondition.CodeI} {technologicalCondition.CodeJ} " +
-                $"{technologicalCondition.Time}";
+            return $"{technologicalCondition.Title} " +
+                   $"{technologicalCondition.CodeI}" +
+                   $" {technologicalCondition.CodeJ} " +
+                   $"{technologicalCondition.Time}";
         }
     }
 }

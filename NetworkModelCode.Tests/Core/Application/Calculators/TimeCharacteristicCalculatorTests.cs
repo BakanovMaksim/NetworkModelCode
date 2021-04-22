@@ -17,9 +17,9 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         [SetUp]
         public void SetUp()
         {
-            TimeCharacteristicCalculator = new();
+            TimeCharacteristicCalculator = new(CalculatorSource.GetTechnologicalConditions());
 
-            TimeCharacteristics = TimeCharacteristicCalculator.Calculate(CalculatorSource.GetTechnologicalConditions(), CalculatorSource.GetNetworkEvents()).ToList();
+            TimeCharacteristics = TimeCharacteristicCalculator.Calculate().ToList();
         }
 
         [TestCaseSource(typeof(CalculatorSource), nameof(CalculatorSource.GetEarlys))]

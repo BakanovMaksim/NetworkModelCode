@@ -1,7 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Builders;
 using NetworkModelCode.Core.Domain.Entities;
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
     {
         public static bool TryParseProject(string buffer, out Project project)
         {
-            if (string.IsNullOrWhiteSpace(buffer))
+            if (string.IsNullOrEmpty(buffer))
             {
                 project = null;
                 return false;
@@ -20,7 +19,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
             var lines = buffer.Split('\n');
 
-            var technologicalConditionLines = lines.Where(p => p.Split(" ").Count() == 8);
+            var technologicalConditionLines = lines.Where(p => p.Split(" ").Count() == 7);
             var timeCharacteristicLines = lines.Where(p => p.Split(" ").Count() == 6);
 
             var workCount = technologicalConditionLines.Count();
@@ -58,7 +57,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
         private static bool TryParseTechnologicalCondition(string line, out TechnologicalCondition technologicalCondition)
         {
-            if (string.IsNullOrWhiteSpace(line))
+            if (string.IsNullOrEmpty(line))
             {
                 technologicalCondition = null;
                 return false;
@@ -69,14 +68,12 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
             var title = items[0];
             var isTryCodeI = int.TryParse(items[1], out var codeI);
             var isTryCodeJ = int.TryParse(items[2], out var codeJ);
-            var isTryTimeMin = double.TryParse(items[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMin);
-            var isTryTimeMax = double.TryParse(items[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var timeMax);
-            var isTryResourceCapacity = double.TryParse(items[5], NumberStyles.Float, CultureInfo.InvariantCulture, out var resourceCapacity);
-            var isTryConsumptionMin = double.TryParse(items[6], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMin);
-            var isTryConsumptionMax = double.TryParse(items[7], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMax);
+            var isTime = int.TryParse(items[3], out var time);
+            var isTryResourceCapacity = double.TryParse(items[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var resourceCapacity);
+            var isTryConsumptionMin = double.TryParse(items[5], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMin);
+            var isTryConsumptionMax = double.TryParse(items[6], NumberStyles.Float, CultureInfo.InvariantCulture, out var consumptionMax);
 
-            if (!isTryCodeI && !isTryCodeJ
-                && !isTryTimeMin && !isTryTimeMax)
+            if (!isTryCodeI && !isTryCodeJ && !isTime)
             {
                 technologicalCondition = null;
                 return false;
@@ -84,8 +81,8 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
             technologicalCondition = new TechnologicalConditionBuilder()
                 .SetTitle(title)
+                .SetTime(time)
                 .SetCode(codeI, codeJ)
-                .SetTime(timeMin, timeMax)
                 .SetResource(resourceCapacity,consumptionMin,consumptionMax)
                 .Build();
 
@@ -94,7 +91,7 @@ namespace NetworkModelCode.Infrastructure.Business.Parsers
 
         private static bool TryParseTimeCharacteristic(string line, out TimeCharacteristic timeCharacteristic)
         {
-            if (string.IsNullOrWhiteSpace(line))
+            if (string.IsNullOrEmpty(line))
             {
                 timeCharacteristic = null;
                 return false;

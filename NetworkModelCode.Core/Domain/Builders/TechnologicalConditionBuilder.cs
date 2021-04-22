@@ -1,7 +1,6 @@
 ﻿using NetworkModelCode.Core.Domain.Entities;
 
 using System;
-using System.Collections.Generic;
 
 namespace NetworkModelCode.Core.Domain.Builders
 {
@@ -27,11 +26,9 @@ namespace NetworkModelCode.Core.Domain.Builders
             return this;
         }
 
-        public TechnologicalConditionBuilder SetTime(double timeMin, double timeMax)
+        public TechnologicalConditionBuilder SetTime(int time)
         {
-            TechnologicalCondition.TimeMin = timeMin;
-            TechnologicalCondition.TimeMax = timeMax;
-            TechnologicalCondition.Time = (int)Math.Round((((3 * timeMin) + (2 * timeMax)) / 5) - 0.1);
+            TechnologicalCondition.Time = time;
             return this;
         }
 

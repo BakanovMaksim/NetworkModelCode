@@ -23,8 +23,7 @@ namespace NetworkModelCode.Tests.Core.Application.Calculators
         {
             var expected = CalculatorSource.GetNetworkEvents();
 
-            var calculator = new NetworkEventCalculator();
-            var actual = calculator.Calculate(TechnologicalConditions);
+            var actual = NetworkEventCalculator.Calculate(TechnologicalConditions);
 
             CollectionAssert.AreEqual(expected, actual);
         }
