@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetworkModelCode.Core.Domain.Entities
 {
@@ -11,10 +10,6 @@ namespace NetworkModelCode.Core.Domain.Entities
 
         public int CodeJ { get; set; }
 
-        public double TimeMin { get; set; }
-
-        public double TimeMax { get; set; }
-
         public int Time { get; set; }
 
         public double ResourceCapacity { get; set; }
@@ -22,8 +17,6 @@ namespace NetworkModelCode.Core.Domain.Entities
         public double ResourceConsumptionMin { get; set; }
 
         public double ResourceConsumptionMax { get; set; }
-
-        public DateTime? DirectiveDate { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
@@ -34,12 +27,14 @@ namespace NetworkModelCode.Core.Domain.Entities
             var itemDataSource = obj as TechnologicalCondition;
 
             if (itemDataSource == null)
+            {
                 return false;
+            }
 
             return
                 (this.CodeI == itemDataSource.CodeI) && (this.CodeJ == itemDataSource.CodeJ)
-                && (this.TimeMin == TimeMin) && (this.TimeMax == TimeMax)
-                ? true : false;
+                ? true
+                : false;
         }
 
         public override int GetHashCode()
@@ -52,8 +47,10 @@ namespace NetworkModelCode.Core.Domain.Entities
     {
         public static string ToStringCustom(this TechnologicalCondition technologicalCondition)
         {
-            return $"{technologicalCondition.Title} {technologicalCondition.CodeI} {technologicalCondition.CodeJ} " +
-                $"{technologicalCondition.Time}";
+            return $"{technologicalCondition.Title} " +
+                   $"{technologicalCondition.CodeI}" +
+                   $" {technologicalCondition.CodeJ} " +
+                   $"{technologicalCondition.Time}";
         }
     }
 }

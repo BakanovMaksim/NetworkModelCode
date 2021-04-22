@@ -13,13 +13,7 @@ namespace NetworkModelCode.Desktop.DTO
         [DisplayName("Код-j")]
         public int CodeJ { get; set; }
 
-        [DisplayName("Продолж.(мин)")]
-        public int TimeMin { get; set; }
-
-        [DisplayName("Продолж.(макс)")]
-        public int TimeMax { get; set; }
-
-        [DisplayName("Продолж.(ож)")]
+        [DisplayName("Время")]
         public int Time { get; set; }
 
         [DisplayName("Ресурсоемкость")]
